@@ -1,23 +1,23 @@
-import { ApolloClient } from '@apollo/client';
+import { ApolloClient } from '@apollo/client/core';
 
 import {
-  IAccruPayMerchantAdminSdkParams,
+  IAccruPayMerchantAdminParams,
   createApolloClient,
 } from '@api/apolloClient';
 
 import { Users } from '@services/users';
 import { Merchants } from '@services/merchants';
 
-import { AccruPayMerchantAdminSdkContext } from './types/context.types';
+import { AccruPayMerchantAdminContext } from './types/context.types';
 
-class AccruPayMerchantAdminSdk {
+class AccruPayMerchantAdmin {
   public readonly apolloClient: ApolloClient<unknown>;
-  private readonly context: AccruPayMerchantAdminSdkContext;
+  private readonly context: AccruPayMerchantAdminContext;
 
   public readonly users: Users;
   public readonly merchants: Merchants;
 
-  constructor(params: IAccruPayMerchantAdminSdkParams) {
+  constructor(params: IAccruPayMerchantAdminParams) {
     this.apolloClient = createApolloClient(params);
     this.context = { apolloClient: this.apolloClient };
 
@@ -26,5 +26,10 @@ class AccruPayMerchantAdminSdk {
   }
 }
 
-export { AccruPayMerchantAdminSdkResponseType } from '@utils/response.type';
-export { AccruPayMerchantAdminSdk };
+export { AccruPayMerchantAdminResponseType } from '@utils/response.type';
+
+export * from '@gql';
+export * from '@gql/graphql';
+
+export { AccruPayMerchantAdmin };
+export default AccruPayMerchantAdmin;
