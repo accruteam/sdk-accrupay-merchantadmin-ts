@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
+    "\n  query HealthCheck {\n    healthCheck\n  }\n": types.HealthCheckDocument,
     "\n  fragment MerchantFragment on Merchant {\n    id\n    name\n    email\n    phone\n    status\n    publicId\n    publicIdUpdatedAt\n    createdAt\n    updatedAt\n  }\n": types.MerchantFragmentFragmentDoc,
     "\n  fragment MerchantUserFragment on MerchantUser {\n    id\n    isEnabled\n    role\n    createdAt\n    updatedAt\n\n    user {\n      ...UserBaseFragment\n    }\n\n    merchantId\n    merchant {\n      ...MerchantFragment\n    }\n  }\n": types.MerchantUserFragmentFragmentDoc,
     "\n  query UserMerchants(\n    $merchantId: String,\n\n    $skip: Int,\n    $take: Int,\n\n    $after: ConnectionCursor,\n    $first: Int,\n\n    $before: ConnectionCursor,\n    $last: Int,\n\n    $sorting: [SortingFieldSchema!]\n  ) {\n    userMerchants(\n      id: $merchantId,\n\n      skip: $skip,\n      take: $take,\n\n      after: $after,\n      first: $first,\n\n      before: $before,\n      last: $last,\n\n      sorting: $sorting\n    ) {\n      edges {\n        node {\n          ...MerchantFragment\n        }\n        cursor\n      }\n      pageInfo {\n        hasNextPage\n        hasPreviousPage\n        startCursor\n        endCursor\n      }\n      totalCount\n    }\n  }\n": types.UserMerchantsDocument,
@@ -48,6 +49,10 @@ const documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query HealthCheck {\n    healthCheck\n  }\n"): (typeof documents)["\n  query HealthCheck {\n    healthCheck\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
