@@ -3,7 +3,7 @@ import {
   InMemoryCache,
   createHttpLink,
   ApolloLink,
-} from '@apollo/client';
+} from '@apollo/client/core';
 import { onError } from '@apollo/client/link/error';
 import { NetworkError } from '@apollo/client/errors';
 import { setContext } from '@apollo/client/link/context';
@@ -24,7 +24,7 @@ const AccruPayEnvironments = {
   qa: 'https://api.qa.pay.accru.co/graphql',
 };
 
-interface IAccruPayMerchantAdminSdkParams {
+interface IAccruPayMerchantAdminParams {
   environment?: keyof typeof AccruPayEnvironments;
 
   /** Overrides the environment base URL */
@@ -94,7 +94,7 @@ export const createApolloClient = ({
   onGraphQLError,
   onNetworkError,
   onAuthError,
-}: IAccruPayMerchantAdminSdkParams) => {
+}: IAccruPayMerchantAdminParams) => {
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors?.length && typeof onGraphQLError === 'function')
       onGraphQLError(graphQLErrors);
@@ -155,5 +155,5 @@ export const createApolloClient = ({
   });
 };
 
-export type { IAccruPayMerchantAdminSdkParams };
+export type { IAccruPayMerchantAdminParams };
 export default createApolloClient;
