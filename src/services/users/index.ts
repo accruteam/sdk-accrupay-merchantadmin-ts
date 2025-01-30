@@ -1,4 +1,4 @@
-import { AccruPayMerchantAdminContext } from '@/types/context.types';
+import { AccruPayMerchantAdminClientContext } from '@/types/context.types';
 import {
   UserEmailVerifyOrChangeFinishMutation,
   UserEmailVerifyOrChangeFinishMutationVariables,
@@ -44,7 +44,7 @@ import {
 } from './queries';
 
 class Users {
-  constructor(private context: AccruPayMerchantAdminContext) {}
+  constructor(private context: AccruPayMerchantAdminClientContext) {}
 
   public async getCurrent(
     variables: UserQueryVariables,

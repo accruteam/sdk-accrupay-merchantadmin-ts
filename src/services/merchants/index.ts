@@ -1,4 +1,4 @@
-import { AccruPayMerchantAdminContext } from '@/types/context.types';
+import { AccruPayMerchantAdminClientContext } from '@/types/context.types';
 import {
   UserMerchantsQuery,
   UserMerchantsQueryVariables,
@@ -8,7 +8,7 @@ import { parsePlainNodes } from '@utils/parsePlainNodes';
 import { MERCHANTS_GET_MANY_QUERY } from './queries';
 
 class Merchants {
-  constructor(private context: AccruPayMerchantAdminContext) {}
+  constructor(private context: AccruPayMerchantAdminClientContext) {}
 
   public async getMany(
     variables: UserMerchantsQueryVariables,
