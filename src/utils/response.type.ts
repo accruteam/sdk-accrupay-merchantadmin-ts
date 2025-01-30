@@ -11,5 +11,6 @@ export type Res<T, U = WithoutTypename<T>> =
       : I
     : never;
 
-export type AccruPayMerchantAdminResponseType<T extends (...args: any) => any> =
-  Awaited<ReturnType<T>>;
+export type AccruPayMerchantAdminClientResponseType<
+  T extends (...args: any) => any,
+> = Awaited<ReturnType<T>>;

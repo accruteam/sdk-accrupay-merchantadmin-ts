@@ -24,7 +24,7 @@ const AccruPayEnvironments = {
   qa: 'https://api.qa.pay.accru.co/graphql',
 };
 
-interface IAccruPayMerchantAdminParams {
+interface IAccruPayMerchantAdminClientParams {
   environment?: keyof typeof AccruPayEnvironments;
 
   /** Overrides the environment base URL */
@@ -94,7 +94,7 @@ export const createApolloClient = ({
   onGraphQLError,
   onNetworkError,
   onAuthError,
-}: IAccruPayMerchantAdminParams) => {
+}: IAccruPayMerchantAdminClientParams) => {
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors?.length && typeof onGraphQLError === 'function')
       onGraphQLError(graphQLErrors);
@@ -155,5 +155,5 @@ export const createApolloClient = ({
   });
 };
 
-export type { IAccruPayMerchantAdminParams };
+export type { IAccruPayMerchantAdminClientParams };
 export default createApolloClient;

@@ -1,5 +1,5 @@
 import { ApolloClient } from '@apollo/client/core';
 
-export type AccruPayMerchantAdminContext = {
+export type AccruPayMerchantAdminClientContext = {
   apolloClient: ApolloClient<unknown>;
 };
