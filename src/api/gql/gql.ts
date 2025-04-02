@@ -13,7 +13,28 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
-const documents = {
+type Documents = {
+    "\n  query HealthCheck {\n    healthCheck\n  }\n": typeof types.HealthCheckDocument,
+    "\n  fragment MerchantFragment on Merchant {\n    id\n    name\n    email\n    phone\n    status\n    publicId\n    publicIdUpdatedAt\n    createdAt\n    updatedAt\n  }\n": typeof types.MerchantFragmentFragmentDoc,
+    "\n  fragment MerchantUserFragment on MerchantUser {\n    id\n    isEnabled\n    role\n    createdAt\n    updatedAt\n\n    user {\n      ...UserBaseFragment\n    }\n\n    merchantId\n    merchant {\n      ...MerchantFragment\n    }\n  }\n": typeof types.MerchantUserFragmentFragmentDoc,
+    "\n  query UserMerchants(\n    $merchantId: String,\n\n    $skip: Int,\n    $take: Int,\n\n    $after: ConnectionCursor,\n    $first: Int,\n\n    $before: ConnectionCursor,\n    $last: Int,\n\n    $sorting: [SortingFieldSchema!]\n  ) {\n    userMerchants(\n      id: $merchantId,\n\n      skip: $skip,\n      take: $take,\n\n      after: $after,\n      first: $first,\n\n      before: $before,\n      last: $last,\n\n      sorting: $sorting\n    ) {\n      edges {\n        node {\n          ...MerchantFragment\n        }\n        cursor\n      }\n      pageInfo {\n        hasNextPage\n        hasPreviousPage\n        startCursor\n        endCursor\n      }\n      totalCount\n    }\n  }\n": typeof types.UserMerchantsDocument,
+    "\n  fragment UserBaseFragment on User {\n    id\n    name\n    email\n    phone\n    createdAt\n    updatedAt\n    isAdmin\n    emailVerificationId\n    phoneVerificationId\n  }\n": typeof types.UserBaseFragmentFragmentDoc,
+    "\n  fragment UserFragment on User {\n    ...UserBaseFragment\n    merchants {\n      ...MerchantUserFragment\n    }\n  }\n": typeof types.UserFragmentFragmentDoc,
+    "\n  query User {\n    user {\n      ...UserFragment\n    }\n  }\n": typeof types.UserDocument,
+    "\n  mutation UserSignUpWithEmailStart($data: UserSignUpWithEmailStartSchema!) {\n    userSignUpWithEmailStart(data: $data)\n  }\n": typeof types.UserSignUpWithEmailStartDocument,
+    "\n  mutation UserSignUpWithEmailVerify($data: UserSignUpWithEmailVerifySchema!) {\n    userSignUpWithEmailVerify(data: $data)\n  }\n": typeof types.UserSignUpWithEmailVerifyDocument,
+    "\n  mutation UserSignUpWithEmailFinish($data: UserSignUpWithEmailFinishSchema!) {\n    userSignUpWithEmailFinish(data: $data)\n  }\n": typeof types.UserSignUpWithEmailFinishDocument,
+    "\n  mutation UserUpdateData($data: UserUpdateDataSchema!) {\n    userUpdateData(data: $data) {\n      ...UserFragment\n    }\n  }\n": typeof types.UserUpdateDataDocument,
+    "\n  mutation UserSessionsClose {\n    userSessionsClose\n  }\n": typeof types.UserSessionsCloseDocument,
+    "\n  mutation UserPasswordChangeStart($data: UserPasswordChangeStartSchema!) {\n    userPasswordChangeStart(data: $data)\n  }\n": typeof types.UserPasswordChangeStartDocument,
+    "\n  mutation UserPasswordChangeFinish($data: UserPasswordChangeFinishSchema!) {\n    userPasswordChangeFinish(data: $data)\n  }\n": typeof types.UserPasswordChangeFinishDocument,
+    "\n  mutation UserEmailVerifyOrChangeStart($data: UserEmailVerifyOrChangeStartSchema!) {\n    userEmailVerifyOrChangeStart(data: $data)\n  }\n": typeof types.UserEmailVerifyOrChangeStartDocument,
+    "\n  mutation UserEmailVerifyOrChangeFinish($data: UserEmailVerifyOrChangeFinishSchema!) {\n    userEmailVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n": typeof types.UserEmailVerifyOrChangeFinishDocument,
+    "\n  mutation UserHandleLoginAttempt($email: String!) {\n    userHandleLoginAttempt(email: $email)\n  }\n": typeof types.UserHandleLoginAttemptDocument,
+    "\n  mutation UserPasswordResetStart($data: UserPasswordResetStartSchema!) {\n    userPasswordResetStart(data: $data)\n  }\n": typeof types.UserPasswordResetStartDocument,
+    "\n  mutation UserPasswordResetFinish($data: UserPasswordResetFinishSchema!) {\n    userPasswordResetFinish(data: $data)\n  }\n": typeof types.UserPasswordResetFinishDocument,
+};
+const documents: Documents = {
     "\n  query HealthCheck {\n    healthCheck\n  }\n": types.HealthCheckDocument,
     "\n  fragment MerchantFragment on Merchant {\n    id\n    name\n    email\n    phone\n    status\n    publicId\n    publicIdUpdatedAt\n    createdAt\n    updatedAt\n  }\n": types.MerchantFragmentFragmentDoc,
     "\n  fragment MerchantUserFragment on MerchantUser {\n    id\n    isEnabled\n    role\n    createdAt\n    updatedAt\n\n    user {\n      ...UserBaseFragment\n    }\n\n    merchantId\n    merchant {\n      ...MerchantFragment\n    }\n  }\n": types.MerchantUserFragmentFragmentDoc,
