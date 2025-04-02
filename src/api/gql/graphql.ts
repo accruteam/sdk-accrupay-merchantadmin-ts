@@ -345,6 +345,7 @@ export enum COUNTRY_ISO_2 {
 }
 
 export enum CURRENCY {
+  EUR = 'EUR',
   USD = 'USD'
 }
 
@@ -352,6 +353,50 @@ export enum ENTITY_TYPE {
   COMPANY = 'COMPANY',
   INDIVIDUAL = 'INDIVIDUAL'
 }
+
+export type ErrorLog = {
+  __typename?: 'ErrorLog';
+  code?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTimeISO']['output'];
+  debug?: Maybe<Scalars['JSON']['output']>;
+  environment?: Maybe<Scalars['String']['output']>;
+  handler?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  merchantId?: Maybe<Scalars['String']['output']>;
+  message: Scalars['String']['output'];
+  method?: Maybe<Scalars['String']['output']>;
+  operation?: Maybe<Scalars['String']['output']>;
+  path?: Maybe<Scalars['String']['output']>;
+  payload?: Maybe<Scalars['JSON']['output']>;
+  requestAgentInfo?: Maybe<Scalars['JSON']['output']>;
+  requestContext?: Maybe<Scalars['JSON']['output']>;
+  requestData?: Maybe<Scalars['JSON']['output']>;
+  resolvedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  resolvedByEmail?: Maybe<Scalars['String']['output']>;
+  responseContext?: Maybe<Scalars['JSON']['output']>;
+  responseData?: Maybe<Scalars['JSON']['output']>;
+  source?: Maybe<Scalars['String']['output']>;
+  stack?: Maybe<Scalars['String']['output']>;
+  statusCode?: Maybe<Scalars['Int']['output']>;
+  updatedAt: Scalars['DateTimeISO']['output'];
+  userEmail?: Maybe<Scalars['String']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
+};
+
+export type ErrorLogPaginationConnection = {
+  __typename?: 'ErrorLogPaginationConnection';
+  edges: Array<ErrorLogPaginationEdge>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type ErrorLogPaginationEdge = {
+  __typename?: 'ErrorLogPaginationEdge';
+  cursor: Scalars['ConnectionCursor']['output'];
+  node: ErrorLog;
+};
 
 export enum LEGAL_IDENTIFIER_TYPE {
   EIN = 'EIN',
@@ -470,6 +515,7 @@ export type MerchantCustomerPaymentMethod = {
   paymentMethodInfo?: Maybe<MerchantCustomerPaymentMethodInfo>;
   providerCode: Scalars['String']['output'];
   providerError?: Maybe<Scalars['String']['output']>;
+  providerLastSyncedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   providerLastVerifiedAt: Scalars['DateTimeISO']['output'];
   providerStatus: PAYMENT_METHOD_STATUS;
   transactionProviderId: Scalars['String']['output'];
@@ -539,6 +585,7 @@ export type MerchantPaymentPlan = {
   periodCount: Scalars['Int']['output'];
   providerCode: Scalars['String']['output'];
   providerError?: Maybe<Scalars['String']['output']>;
+  providerLastSyncedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   providerLastVerifiedAt: Scalars['DateTimeISO']['output'];
   providerStatus: PAYMENT_PLAN_STATUS;
   renewalIntervalDays: Scalars['Int']['output'];
@@ -551,7 +598,7 @@ export type MerchantPaymentPlan = {
   timeAnchor: Scalars['DateTimeISO']['output'];
   transactionProvider: MerchantTransactionProvider;
   transactionProviderId: Scalars['String']['output'];
-  transactions: Array<MerchantPaymentPlanTransaction>;
+  transactions: Array<MerchantTransaction>;
   trialEndsAt: Scalars['DateTimeISO']['output'];
   trialPeriodDays: Scalars['Int']['output'];
   trialPeriodMonths: Scalars['Int']['output'];
@@ -607,6 +654,7 @@ export type MerchantPaymentPlanTemplate = {
   payload: Scalars['JSON']['output'];
   providerCode: Scalars['String']['output'];
   providerError?: Maybe<Scalars['String']['output']>;
+  providerLastSyncedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   providerLastVerifiedAt: Scalars['DateTimeISO']['output'];
   providerStatus: PAYMENT_PLAN_TEMPLATE_STATUS;
   renewalIntervalDays: Scalars['Int']['output'];
@@ -668,20 +716,6 @@ export type MerchantPaymentPlanTemplateUpdateSchema = {
   trialPeriodYears?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type MerchantPaymentPlanTransaction = {
-  __typename?: 'MerchantPaymentPlanTransaction';
-  action: PAYMENT_PLAN_PAYMENT_ACTION;
-  createdAt: Scalars['DateTimeISO']['output'];
-  id: Scalars['ID']['output'];
-  paymentPlanId: Scalars['String']['output'];
-  periodCount: Scalars['Int']['output'];
-  periodEnd: Scalars['DateTimeISO']['output'];
-  periodStart: Scalars['DateTimeISO']['output'];
-  transaction: MerchantTransaction;
-  transactionId: Scalars['String']['output'];
-  updatedAt: Scalars['DateTimeISO']['output'];
-};
-
 export type MerchantTransaction = {
   __typename?: 'MerchantTransaction';
   action: TRANSACTION_ACTION;
@@ -703,27 +737,32 @@ export type MerchantTransaction = {
   disputedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   failedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   id: Scalars['ID']['output'];
-  merchantInternalCustomerCode: Scalars['String']['output'];
-  merchantInternalTransactionCode: Scalars['String']['output'];
+  merchantInternalCustomerCode?: Maybe<Scalars['String']['output']>;
+  merchantInternalTransactionCode?: Maybe<Scalars['String']['output']>;
   payload: Scalars['JSON']['output'];
   paymentMethod?: Maybe<MerchantCustomerPaymentMethod>;
   paymentMethodCode?: Maybe<Scalars['String']['output']>;
   paymentMethodId?: Maybe<Scalars['String']['output']>;
   paymentMethodType?: Maybe<PAYMENT_METHOD>;
+  paymentPlan?: Maybe<MerchantPaymentPlan>;
+  paymentPlanId?: Maybe<Scalars['String']['output']>;
   providerCode: Scalars['String']['output'];
   providerError?: Maybe<Scalars['String']['output']>;
+  providerLastSyncedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   providerLastVerifiedAt: Scalars['DateTimeISO']['output'];
   providerRelatedCode?: Maybe<Scalars['String']['output']>;
   providerStatus: TRANSACTION_STATUS;
+  relatedTransaction?: Maybe<MerchantTransaction>;
   relatedTransactionId?: Maybe<Scalars['String']['output']>;
   revertedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   startedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   status: TRANSACTION_STATUS;
-  storePaymentMethod: Scalars['Boolean']['output'];
+  storePaymentMethod?: Maybe<Scalars['Boolean']['output']>;
   succeededAt?: Maybe<Scalars['DateTimeISO']['output']>;
   token?: Maybe<Scalars['String']['output']>;
   tokenExpiresAt?: Maybe<Scalars['DateTimeISO']['output']>;
   transactionDate: Scalars['DateTimeISO']['output'];
+  transactionError?: Maybe<Scalars['String']['output']>;
   transactionProvider: MerchantTransactionProvider;
   transactionProviderId: Scalars['String']['output'];
   updatedAt: Scalars['DateTimeISO']['output'];
@@ -794,6 +833,8 @@ export type MerchantUserPaginationEdge = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  adminErrorLogMarkAllAsResolved: Scalars['DateTimeISO']['output'];
+  adminErrorLogMarkAsResolved: ErrorLog;
   adminMerchantApiKeyCreate: MerchantApiKey;
   adminMerchantApiKeyDelete: Scalars['DateTimeISO']['output'];
   adminMerchantCreate: Merchant;
@@ -816,6 +857,8 @@ export type Mutation = {
   merchantApiPaymentPlanTemplateSyncAll: Array<MerchantPaymentPlanTemplate>;
   merchantApiPaymentPlanTemplateSyncOne: MerchantPaymentPlanTemplate;
   merchantApiPaymentPlanTemplateUpdate: MerchantPaymentPlanTemplate;
+  merchantApiTransactionRefund: MerchantTransaction;
+  merchantApiTransactionSyncOne: MerchantTransaction;
   merchantApiTransactionVoid: MerchantTransaction;
   userEmailVerifyOrChangeFinish: User;
   userEmailVerifyOrChangeStart: Scalars['DateTimeISO']['output'];
@@ -830,6 +873,11 @@ export type Mutation = {
   userSignUpWithEmailStart: Scalars['DateTimeISO']['output'];
   userSignUpWithEmailVerify: Scalars['DateTimeISO']['output'];
   userUpdateData: User;
+};
+
+
+export type MutationadminErrorLogMarkAsResolvedArgs = {
+  errorLogId: Scalars['String']['input'];
 };
 
 
@@ -899,6 +947,7 @@ export type MutationmerchantApiClientTransactionPaymentSessionVerifyArgs = {
   code?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   merchantInternalTransactionCode?: InputMaybe<Scalars['String']['input']>;
+  providerCode?: InputMaybe<Scalars['String']['input']>;
   token?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -963,8 +1012,31 @@ export type MutationmerchantApiPaymentPlanTemplateUpdateArgs = {
 };
 
 
+export type MutationmerchantApiTransactionRefundArgs = {
+  code?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  merchantInternalTransactionCode?: InputMaybe<Scalars['String']['input']>;
+  providerCode?: InputMaybe<Scalars['String']['input']>;
+  token?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type MutationmerchantApiTransactionSyncOneArgs = {
+  code?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  merchantInternalTransactionCode?: InputMaybe<Scalars['String']['input']>;
+  merchantTransactionProviderId: Scalars['String']['input'];
+  providerCode?: InputMaybe<Scalars['String']['input']>;
+  token?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type MutationmerchantApiTransactionVoidArgs = {
-  merchantTransactionId: Scalars['String']['input'];
+  code?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  merchantInternalTransactionCode?: InputMaybe<Scalars['String']['input']>;
+  providerCode?: InputMaybe<Scalars['String']['input']>;
+  token?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1031,11 +1103,6 @@ export enum PAYMENT_METHOD_STATUS {
   ENABLED = 'ENABLED'
 }
 
-export enum PAYMENT_PLAN_PAYMENT_ACTION {
-  PURCHASE = 'PURCHASE',
-  RENEWAL = 'RENEWAL'
-}
-
 export enum PAYMENT_PLAN_STATUS {
   ACTIVE = 'ACTIVE',
   CANCELED = 'CANCELED',
@@ -1060,6 +1127,7 @@ export type PageInfo = {
 
 export type Query = {
   __typename?: 'Query';
+  adminErrorLogs: ErrorLogPaginationConnection;
   adminMerchant: Merchant;
   adminMerchantApiKey: MerchantApiKey;
   adminMerchantApiKeys: MerchantApiKeyPaginationConnection;
@@ -1089,6 +1157,21 @@ export type Query = {
   user: User;
   userMerchant: Merchant;
   userMerchants: MerchantPaginationConnection;
+};
+
+
+export type QueryadminErrorLogsArgs = {
+  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
+  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  message?: InputMaybe<Scalars['String']['input']>;
+  path?: InputMaybe<Scalars['String']['input']>;
+  resolved?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sorting?: InputMaybe<Array<SortingFieldSchema>>;
+  take?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1299,6 +1382,7 @@ export type QuerymerchantApiTransactionArgs = {
   code?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   merchantInternalTransactionCode?: InputMaybe<Scalars['String']['input']>;
+  providerCode?: InputMaybe<Scalars['String']['input']>;
   token?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1339,6 +1423,7 @@ export type QuerymerchantApiTransactionsArgs = {
   merchantInternalTransactionCode?: InputMaybe<Scalars['String']['input']>;
   paymentMethodId?: InputMaybe<Scalars['String']['input']>;
   paymentMethodType?: InputMaybe<PAYMENT_METHOD>;
+  paymentPlanId?: InputMaybe<Scalars['String']['input']>;
   providerCode?: InputMaybe<Scalars['String']['input']>;
   providerRelatedCode?: InputMaybe<Scalars['String']['input']>;
   relatedTransactionId?: InputMaybe<Scalars['String']['input']>;
@@ -1394,9 +1479,16 @@ export type SortingFieldSchema = {
 };
 
 export enum TRANSACTION_ACTION {
+  AUTHENTICATION = 'AUTHENTICATION',
   AUTHORIZATION = 'AUTHORIZATION',
+  CHARGEBACK = 'CHARGEBACK',
+  CREDIT = 'CREDIT',
+  MODIFICATION = 'MODIFICATION',
   PAYMENT = 'PAYMENT',
+  PAYOUT = 'PAYOUT',
   REFUND = 'REFUND',
+  SETTLE = 'SETTLE',
+  UNKNOWN = 'UNKNOWN',
   VOID = 'VOID'
 }
 
@@ -1405,11 +1497,11 @@ export enum TRANSACTION_PROVIDER {
 }
 
 export enum TRANSACTION_STATUS {
-  DISPUTED = 'DISPUTED',
+  DECLINED = 'DECLINED',
+  ERROR = 'ERROR',
   EXPIRED = 'EXPIRED',
   FAILED = 'FAILED',
   PENDING = 'PENDING',
-  REVERTED = 'REVERTED',
   STARTED = 'STARTED',
   SUCCEEDED = 'SUCCEEDED',
   UNKNOWN = 'UNKNOWN'
