@@ -45,3 +45,27 @@ export const MERCHANTS_GET_MANY_QUERY = gql(`
     }
   }
 `);
+
+export const MERCHANTS_GET_ONE_QUERY = gql(`
+  query UserMerchant($merchantId: String!) {
+    userMerchant(merchantId: $merchantId) {
+      ...MerchantFragment
+    }
+  }
+`);
+
+export const MERCHANTS_CREATE_MUTATION = gql(`
+  mutation UserMerchantCreate($data: MerchantCreateSchema!) {
+    userMerchantCreate(data: $data) {
+      ...MerchantFragment
+    }
+  }
+`);
+
+export const MERCHANTS_UPDATE_MUTATION = gql(`
+  mutation UserMerchantUpdate($merchantId: String!, $data: MerchantUpdateSchema!) {
+    userMerchantUpdate(merchantId: $merchantId, data: $data) {
+      ...MerchantFragment
+    }
+  }
+`);
