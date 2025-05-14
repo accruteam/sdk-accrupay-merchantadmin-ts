@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.4.0
+
+### Minor Changes
+
+- 82bdca7: add public merchant creation and invites api
+
 ## 0.3.1
 
 ### Patch Changes
