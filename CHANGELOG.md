@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.4.1
+
+### Patch Changes
+
+- df29c01: fix merchant user creation
+
 ## 0.4.0
 
 ### Minor Changes
