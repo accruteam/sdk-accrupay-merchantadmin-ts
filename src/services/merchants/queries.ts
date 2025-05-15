@@ -57,7 +57,7 @@ export const MERCHANTS_GET_ONE_QUERY = gql(`
 export const MERCHANTS_CREATE_MUTATION = gql(`
   mutation UserMerchantCreate($data: MerchantCreateSchema!) {
     userMerchantCreate(data: $data) {
-      ...MerchantFragment
+      ...MerchantUserFragment
     }
   }
 `);
