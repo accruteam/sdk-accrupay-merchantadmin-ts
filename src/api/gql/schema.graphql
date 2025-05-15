@@ -1019,7 +1019,7 @@ type Mutation {
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTimeISO!
   userHandleLoginAttempt(email: String!): DateTimeISO!
-  userMerchantCreate(data: MerchantCreateSchema!): Merchant!
+  userMerchantCreate(data: MerchantCreateSchema!): MerchantUser!
   userMerchantSentInvitationCancel(invitationId: String!, merchantId: String): MerchantUserInvitation!
   userMerchantSentInvitationCreate(data: MerchantUserInvitationCreateSchema!, merchantId: String): MerchantUserInvitation!
   userMerchantUpdate(data: MerchantUpdateSchema!, merchantId: String): Merchant!
