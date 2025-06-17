@@ -1143,7 +1143,7 @@ type Mutation {
   userMerchantPaymentPlanTemplateSyncOne(merchantId: String, merchantTransactionProviderId: String!, providerCode: String!): MerchantPaymentPlanTemplate!
   userMerchantSentInvitationCancel(invitationId: String!, merchantId: String): MerchantUserInvitation!
   userMerchantSentInvitationCreate(data: MerchantUserInvitationCreateSchema!, merchantId: String): MerchantUserInvitation!
-  userMerchantTransactionProviderApplicationApply(merchantId: String, provider: String!): MerchantTransactionProviderApplication!
+  userMerchantTransactionProviderApplicationApply(merchantId: String, provider: TRANSACTION_PROVIDER!): MerchantTransactionProviderApplication!
   userMerchantTransactionProviderCreate(data: UserMerchantTransactionProviderCreateSchema!, merchantId: String): MerchantTransactionProvider!
   userMerchantTransactionSyncOne(
     """Transaction code on AccruPay API."""

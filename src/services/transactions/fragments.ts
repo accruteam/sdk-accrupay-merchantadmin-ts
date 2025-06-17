@@ -88,6 +88,9 @@ export const MERCHANT_TRANSACTION_FRAGMENT = gql(`
     relatedTransactionId
 
     transactionProviderId
+    transactionProvider {
+      ...MerchantTransactionProviderFragment
+    }
 
     payload
 

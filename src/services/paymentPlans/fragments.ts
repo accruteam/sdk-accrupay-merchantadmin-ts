@@ -15,7 +15,11 @@ export const MERCHANT_PAYMENT_PLAN_FRAGMENT = gql(`
     providerLastVerifiedAt
     providerStatus
     status
+
     transactionProviderId
+    transactionProvider {
+      ...MerchantTransactionProviderFragment
+    }
 
     renewalIntervalDays
     renewalIntervalMonths
