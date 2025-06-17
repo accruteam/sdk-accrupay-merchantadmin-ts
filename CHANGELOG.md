@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.5.1
+
+### Patch Changes
+
+- b1eeeb1: add transaction provider for transactions and payment plans
+
 ## 0.5.0
 
 ### Minor Changes
