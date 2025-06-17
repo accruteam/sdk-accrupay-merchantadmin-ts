@@ -68,7 +68,7 @@ export const TRANSACTION_PROVIDER_APPLICATIONS_GET_ONE_QUERY = gql(`
 `);
 
 export const TRANSACTION_PROVIDER_APPLICATIONS_APPLY_MUTATION = gql(`
-  mutation UserMerchantTransactionProviderApplicationApply($merchantId: String, $provider: String!) {
+  mutation UserMerchantTransactionProviderApplicationApply($merchantId: String, $provider: TRANSACTION_PROVIDER!) {
     userMerchantTransactionProviderApplicationApply(
       merchantId: $merchantId,
       provider: $provider
