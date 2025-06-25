@@ -26,6 +26,8 @@ export const MERCHANT_TRANSACTIONS_GET_MANY_QUERY = gql(`
     $canceled: Boolean,
     $reverted: Boolean,
     $disputed: Boolean,
+    $transactionDateFrom: DateTime,
+    $transactionDateTo: DateTime,
     $hasProviderError: Boolean,
 
     $skip: Int,
@@ -65,6 +67,9 @@ export const MERCHANT_TRANSACTIONS_GET_MANY_QUERY = gql(`
       reverted: $reverted,
       disputed: $disputed,
       hasProviderError: $hasProviderError,
+      
+      transactionDateFrom: $transactionDateFrom,
+      transactionDateTo: $transactionDateTo,
 
       skip: $skip,
       take: $take,
