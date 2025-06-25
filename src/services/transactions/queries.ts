@@ -26,8 +26,8 @@ export const MERCHANT_TRANSACTIONS_GET_MANY_QUERY = gql(`
     $canceled: Boolean,
     $reverted: Boolean,
     $disputed: Boolean,
-    $transactionDateFrom: DateTime,
-    $transactionDateTo: DateTime,
+    $transactionDateFrom: DateTimeISO,
+    $transactionDateTo: DateTimeISO,
     $hasProviderError: Boolean,
 
     $skip: Int,
