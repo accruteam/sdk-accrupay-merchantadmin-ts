@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.6.0
+
+### Minor Changes
+
+- 589839e: add more transaction filters
+
 ## 0.5.1
 
 ### Patch Changes
