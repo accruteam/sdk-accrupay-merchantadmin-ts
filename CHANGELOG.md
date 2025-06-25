@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.6.1
+
+### Patch Changes
+
+- faa864d: add transaction date filter to transactions
+
 ## 0.6.0
 
 ### Minor Changes
