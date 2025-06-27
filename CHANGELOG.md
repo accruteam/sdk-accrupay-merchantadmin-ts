@@ -1,5 +1,12 @@
 # @accrupay/merchant-admin
 
+## 0.6.2
+
+### Patch Changes
+
+- 2ea0f45: add payment method ach info
+- faa864d: add transaction date filter to transactions
+
 ## 0.6.1
 
 ### Patch Changes
