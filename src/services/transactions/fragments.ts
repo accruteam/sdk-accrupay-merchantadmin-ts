@@ -1,7 +1,7 @@
 import { gql } from '@api/gql';
 
-export const MERCHANT_TRANSACTION_FRAGMENT = gql(`
-  fragment MerchantTransactionFragment on MerchantTransaction {
+export const MERCHANT_TRANSACTION_BASE_FRAGMENT = gql(`
+  fragment MerchantTransactionBaseFragment on MerchantTransaction {
     id
     code
     token
@@ -82,19 +82,33 @@ export const MERCHANT_TRANSACTION_FRAGMENT = gql(`
     paymentMethodId
     paymentMethodCode
     paymentMethodType
-
+    
     paymentPlanId
 
     relatedTransactionId
-
+    
     transactionProviderId
-    transactionProvider {
-      ...MerchantTransactionProviderFragment
-    }
 
     payload
 
     createdAt
     updatedAt
+  }
+`);
+export const MERCHANT_TRANSACTION_FRAGMENT = gql(`
+  fragment MerchantTransactionFragment on MerchantTransaction {
+    ...MerchantTransactionBaseFragment
+
+    paymentMethod {
+      ...MerchantCustomerPaymentMethodFragment
+    }
+
+    relatedTransaction {
+      ...MerchantTransactionBaseFragment
+    }
+
+    transactionProvider {
+      ...MerchantTransactionProviderFragment
+    }
   }
 `);
