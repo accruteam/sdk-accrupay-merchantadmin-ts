@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.7.0
+
+### Minor Changes
+
+- 926fc17: add payment method info on transactions
+
 ## 0.6.2
 
 ### Patch Changes
