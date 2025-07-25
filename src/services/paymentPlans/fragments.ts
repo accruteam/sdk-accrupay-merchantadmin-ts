@@ -16,11 +16,6 @@ export const MERCHANT_PAYMENT_PLAN_FRAGMENT = gql(`
     providerStatus
     status
 
-    transactionProviderId
-    transactionProvider {
-      ...MerchantTransactionProviderFragment
-    }
-
     renewalIntervalDays
     renewalIntervalMonths
     renewalIntervalYears
@@ -43,7 +38,19 @@ export const MERCHANT_PAYMENT_PLAN_FRAGMENT = gql(`
     canceledAt
 
     paymentMethodId
+    paymentMethod {
+      ...MerchantCustomerPaymentMethodFragment
+    }
+
     templateId
+    template {
+      ...MerchantPaymentPlanTemplateFragment
+    }
+
+    transactionProviderId
+    transactionProvider {
+      ...MerchantTransactionProviderFragment
+    }
 
     payload
 
