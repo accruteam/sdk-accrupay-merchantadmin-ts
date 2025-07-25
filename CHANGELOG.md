@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.8.0
+
+### Minor Changes
+
+- fd1fdf5: add payment method and provider info into payment plan data
+
 ## 0.7.0
 
 ### Minor Changes
