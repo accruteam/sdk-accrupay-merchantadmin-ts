@@ -228,5 +228,5 @@ jobs:
           git fetch origin ${{ github.ref_name }}
           git fetch origin develop
           git checkout develop
-          git merge origin/${{ github.ref_name }} --no-ff --no-edit --strategy=recursive --strategy-option=theirs
+          git merge origin/${{ github.ref_name }} --no-ff --no-edit --strategy=recursive --strategy-option=theirs --allow-unrelated-histories
           git push origin develop
