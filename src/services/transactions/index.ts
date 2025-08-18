@@ -1,13 +1,9 @@
 import { AccruPayMerchantAdminClientContext } from '@/types/context.types';
 import {
-  UserMerchantTransactionQuery,
   UserMerchantTransactionQueryVariables,
-  UserMerchantTransactionsQuery,
   UserMerchantTransactionsQueryVariables,
-  UserMerchantTransactionSyncOneMutation,
   UserMerchantTransactionSyncOneMutationVariables,
 } from '@api/gql/graphql';
-import { Res } from '@utils/response.type';
 import { parsePlainNodes } from '@utils/parsePlainNodes';
 import {
   MERCHANT_TRANSACTIONS_GET_MANY_QUERY,
@@ -18,9 +14,7 @@ import {
 class Transactions {
   constructor(private context: AccruPayMerchantAdminClientContext) {}
 
-  public async getMany(
-    variables: UserMerchantTransactionsQueryVariables,
-  ): Promise<Res<UserMerchantTransactionsQuery>> {
+  public async getMany(variables: UserMerchantTransactionsQueryVariables) {
     const { data } = await this.context.apolloClient.query({
       query: MERCHANT_TRANSACTIONS_GET_MANY_QUERY,
       variables,
@@ -28,9 +22,7 @@ class Transactions {
     return parsePlainNodes(data.userMerchantTransactions);
   }
 
-  public async getOne(
-    variables: UserMerchantTransactionQueryVariables,
-  ): Promise<Res<UserMerchantTransactionQuery>> {
+  public async getOne(variables: UserMerchantTransactionQueryVariables) {
     const { data } = await this.context.apolloClient.query({
       query: MERCHANT_TRANSACTIONS_GET_ONE_QUERY,
       variables,
@@ -40,7 +32,7 @@ class Transactions {
 
   public async syncOne(
     variables: UserMerchantTransactionSyncOneMutationVariables,
-  ): Promise<Res<UserMerchantTransactionSyncOneMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: MERCHANT_TRANSACTIONS_SYNC_ONE_MUTATION,
       variables,

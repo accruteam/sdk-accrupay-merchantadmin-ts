@@ -11,6 +11,9 @@ export type ListResponse<T extends IStandardList> = {
   items: Array<
     T['edges'][number]['node'] & { cursor: T['edges'][number]['cursor'] }
   >;
+  edges: T['edges'];
+  pageInfo: T['pageInfo'];
+  totalCount: T['totalCount'];
 };
 
 type IStandardChildrenList = {
@@ -30,5 +33,8 @@ export const parsePlainNodes = <T extends IStandardList>(
       ...edge.node,
       cursor: edge.cursor,
     })),
+    edges: response.edges,
+    pageInfo: response.pageInfo,
+    totalCount: response.totalCount,
   };
 };

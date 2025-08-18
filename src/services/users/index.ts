@@ -1,32 +1,18 @@
 import { AccruPayMerchantAdminClientContext } from '@/types/context.types';
 import {
-  UserEmailVerifyOrChangeFinishMutation,
   UserEmailVerifyOrChangeFinishMutationVariables,
-  UserEmailVerifyOrChangeStartMutation,
   UserEmailVerifyOrChangeStartMutationVariables,
-  UserHandleLoginAttemptMutation,
   UserHandleLoginAttemptMutationVariables,
-  UserPasswordChangeFinishMutation,
   UserPasswordChangeFinishMutationVariables,
-  UserPasswordChangeStartMutation,
   UserPasswordChangeStartMutationVariables,
-  UserPasswordResetFinishMutation,
   UserPasswordResetFinishMutationVariables,
-  UserPasswordResetStartMutation,
   UserPasswordResetStartMutationVariables,
-  UserQuery,
   UserQueryVariables,
-  UserSessionsCloseMutation,
-  UserSignUpWithEmailFinishMutation,
   UserSignUpWithEmailFinishMutationVariables,
-  UserSignUpWithEmailStartMutation,
   UserSignUpWithEmailStartMutationVariables,
-  UserSignUpWithEmailVerifyMutation,
   UserSignUpWithEmailVerifyMutationVariables,
-  UserUpdateDataMutation,
   UserUpdateDataMutationVariables,
 } from '@api/gql/graphql';
-import { Res } from '@utils/response.type';
 import {
   USERS_EMAIL_VERIFY_OR_CHANGE_FINISH_MUTATION,
   USERS_EMAIL_VERIFY_OR_CHANGE_START_MUTATION,
@@ -46,9 +32,7 @@ import {
 class Users {
   constructor(private context: AccruPayMerchantAdminClientContext) {}
 
-  public async getCurrent(
-    variables: UserQueryVariables,
-  ): Promise<Res<UserQuery>> {
+  public async getCurrent(variables: UserQueryVariables) {
     const { data } = await this.context.apolloClient.query({
       query: USERS_GET_CURRENT_QUERY,
       variables,
@@ -58,7 +42,7 @@ class Users {
 
   public async signUpWithEmailStart(
     variables: UserSignUpWithEmailStartMutationVariables,
-  ): Promise<Res<UserSignUpWithEmailStartMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_SIGN_UP_WITH_EMAIL_START_MUTATION,
       variables,
@@ -68,7 +52,7 @@ class Users {
 
   public async signUpWithEmailVerify(
     variables: UserSignUpWithEmailVerifyMutationVariables,
-  ): Promise<Res<UserSignUpWithEmailVerifyMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_SIGN_UP_WITH_EMAIL_VERIFY_MUTATION,
       variables,
@@ -78,7 +62,7 @@ class Users {
 
   public async signUpWithEmailFinish(
     variables: UserSignUpWithEmailFinishMutationVariables,
-  ): Promise<Res<UserSignUpWithEmailFinishMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_SIGN_UP_WITH_EMAIL_FINISH_MUTATION,
       variables,
@@ -86,9 +70,7 @@ class Users {
     return data!.userSignUpWithEmailFinish;
   }
 
-  public async update(
-    variables: UserUpdateDataMutationVariables,
-  ): Promise<Res<UserUpdateDataMutation>> {
+  public async update(variables: UserUpdateDataMutationVariables) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_UPDATE_MUTATION,
       variables,
@@ -96,7 +78,7 @@ class Users {
     return data!.userUpdateData;
   }
 
-  public async sessionsClose(): Promise<Res<UserSessionsCloseMutation>> {
+  public async sessionsClose() {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_SESSIONS_CLOSE_MUTATION,
     });
@@ -105,7 +87,7 @@ class Users {
 
   public async passwordChangeStart(
     variables: UserPasswordChangeStartMutationVariables,
-  ): Promise<Res<UserPasswordChangeStartMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_PASSWORD_CHANGE_START_MUTATION,
       variables,
@@ -115,7 +97,7 @@ class Users {
 
   public async passwordChangeFinish(
     variables: UserPasswordChangeFinishMutationVariables,
-  ): Promise<Res<UserPasswordChangeFinishMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_PASSWORD_CHANGE_FINISH_MUTATION,
       variables,
@@ -125,7 +107,7 @@ class Users {
 
   public async emailVerifyOrChangeStart(
     variables: UserEmailVerifyOrChangeStartMutationVariables,
-  ): Promise<Res<UserEmailVerifyOrChangeStartMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_EMAIL_VERIFY_OR_CHANGE_START_MUTATION,
       variables,
@@ -135,7 +117,7 @@ class Users {
 
   public async emailVerifyOrChangeFinish(
     variables: UserEmailVerifyOrChangeFinishMutationVariables,
-  ): Promise<Res<UserEmailVerifyOrChangeFinishMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_EMAIL_VERIFY_OR_CHANGE_FINISH_MUTATION,
       variables,
@@ -145,7 +127,7 @@ class Users {
 
   public async handleLoginAttempt(
     variables: UserHandleLoginAttemptMutationVariables,
-  ): Promise<Res<UserHandleLoginAttemptMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_HANDLE_LOGIN_ATTEMPT_MUTATION,
       variables,
@@ -155,7 +137,7 @@ class Users {
 
   public async passwordResetStart(
     variables: UserPasswordResetStartMutationVariables,
-  ): Promise<Res<UserPasswordResetStartMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_PASSWORD_RESET_START_MUTATION,
       variables,
@@ -165,7 +147,7 @@ class Users {
 
   public async passwordResetFinish(
     variables: UserPasswordResetFinishMutationVariables,
-  ): Promise<Res<UserPasswordResetFinishMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: USERS_PASSWORD_RESET_FINISH_MUTATION,
       variables,
