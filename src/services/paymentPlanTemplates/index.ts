@@ -1,13 +1,9 @@
 import { AccruPayMerchantAdminClientContext } from '@/types/context.types';
 import {
-  UserMerchantPaymentPlanTemplateQuery,
   UserMerchantPaymentPlanTemplateQueryVariables,
-  UserMerchantPaymentPlanTemplatesQuery,
   UserMerchantPaymentPlanTemplatesQueryVariables,
-  UserMerchantPaymentPlanTemplateSyncOneMutation,
   UserMerchantPaymentPlanTemplateSyncOneMutationVariables,
 } from '@api/gql/graphql';
-import { Res } from '@utils/response.type';
 import { parsePlainNodes } from '@utils/parsePlainNodes';
 import {
   MERCHANT_PAYMENT_PLAN_TEMPLATES_GET_MANY_QUERY,
@@ -20,7 +16,7 @@ class PaymentPlanTemplates {
 
   public async getMany(
     variables: UserMerchantPaymentPlanTemplatesQueryVariables,
-  ): Promise<Res<UserMerchantPaymentPlanTemplatesQuery>> {
+  ) {
     const { data } = await this.context.apolloClient.query({
       query: MERCHANT_PAYMENT_PLAN_TEMPLATES_GET_MANY_QUERY,
       variables,
@@ -30,7 +26,7 @@ class PaymentPlanTemplates {
 
   public async getOne(
     variables: UserMerchantPaymentPlanTemplateQueryVariables,
-  ): Promise<Res<UserMerchantPaymentPlanTemplateQuery>> {
+  ) {
     const { data } = await this.context.apolloClient.query({
       query: MERCHANT_PAYMENT_PLAN_TEMPLATES_GET_ONE_QUERY,
       variables,
@@ -40,7 +36,7 @@ class PaymentPlanTemplates {
 
   public async syncOne(
     variables: UserMerchantPaymentPlanTemplateSyncOneMutationVariables,
-  ): Promise<Res<UserMerchantPaymentPlanTemplateSyncOneMutation>> {
+  ) {
     const { data } = await this.context.apolloClient.mutate({
       mutation: MERCHANT_PAYMENT_PLAN_TEMPLATES_SYNC_ONE_MUTATION,
       variables,

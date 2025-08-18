@@ -1,14 +1,11 @@
 import { AccruPayMerchantAdminClientContext } from '@/types/context.types';
-import { HealthCheckQuery, HealthCheckQueryVariables } from '@api/gql/graphql';
-import { Res } from '@utils/response.type';
+import { HealthCheckQueryVariables } from '@api/gql/graphql';
 import { HEALTH_CHECKS_QUERY } from './queries';
 
 class HealthChecks {
   constructor(private context: AccruPayMerchantAdminClientContext) {}
 
-  public async check(
-    variables: HealthCheckQueryVariables,
-  ): Promise<Res<HealthCheckQuery>> {
+  public async check(variables: HealthCheckQueryVariables) {
     const { data } = await this.context.apolloClient.query({
       query: HEALTH_CHECKS_QUERY,
       variables,
