@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.8.2
+
+### Patch Changes
+
+- dd13cf4: remove return types
+
 ## 0.8.1
 
 ### Patch Changes
