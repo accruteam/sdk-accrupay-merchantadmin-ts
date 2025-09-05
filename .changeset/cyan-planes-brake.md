@@ -2,4 +2,4 @@
 "@accrupay/merchant-admin": patch
 ---
 
-remove return types
+update password flow

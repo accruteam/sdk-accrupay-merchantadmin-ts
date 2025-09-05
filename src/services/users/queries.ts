@@ -41,8 +41,8 @@ export const USERS_SESSIONS_CLOSE_MUTATION = gql(`
 `);
 
 export const USERS_PASSWORD_CHANGE_START_MUTATION = gql(`
-  mutation UserPasswordChangeStart($data: UserPasswordChangeStartSchema!) {
-    userPasswordChangeStart(data: $data)
+  mutation UserPasswordChangeStart {
+    userPasswordChangeStart
   }
 `);
 
