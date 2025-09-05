@@ -64,7 +64,7 @@ type Documents = {
     "\n  mutation UserSignUpWithEmailFinish($data: UserSignUpWithEmailFinishSchema!) {\n    userSignUpWithEmailFinish(data: $data)\n  }\n": typeof types.UserSignUpWithEmailFinishDocument,
     "\n  mutation UserUpdateData($data: UserUpdateDataSchema!) {\n    userUpdateData(data: $data) {\n      ...UserFragment\n    }\n  }\n": typeof types.UserUpdateDataDocument,
     "\n  mutation UserSessionsClose {\n    userSessionsClose\n  }\n": typeof types.UserSessionsCloseDocument,
-    "\n  mutation UserPasswordChangeStart($data: UserPasswordChangeStartSchema!) {\n    userPasswordChangeStart(data: $data)\n  }\n": typeof types.UserPasswordChangeStartDocument,
+    "\n  mutation UserPasswordChangeStart {\n    userPasswordChangeStart\n  }\n": typeof types.UserPasswordChangeStartDocument,
     "\n  mutation UserPasswordChangeFinish($data: UserPasswordChangeFinishSchema!) {\n    userPasswordChangeFinish(data: $data)\n  }\n": typeof types.UserPasswordChangeFinishDocument,
     "\n  mutation UserEmailVerifyOrChangeStart($data: UserEmailVerifyOrChangeStartSchema!) {\n    userEmailVerifyOrChangeStart(data: $data)\n  }\n": typeof types.UserEmailVerifyOrChangeStartDocument,
     "\n  mutation UserEmailVerifyOrChangeFinish($data: UserEmailVerifyOrChangeFinishSchema!) {\n    userEmailVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n": typeof types.UserEmailVerifyOrChangeFinishDocument,
@@ -123,7 +123,7 @@ const documents: Documents = {
     "\n  mutation UserSignUpWithEmailFinish($data: UserSignUpWithEmailFinishSchema!) {\n    userSignUpWithEmailFinish(data: $data)\n  }\n": types.UserSignUpWithEmailFinishDocument,
     "\n  mutation UserUpdateData($data: UserUpdateDataSchema!) {\n    userUpdateData(data: $data) {\n      ...UserFragment\n    }\n  }\n": types.UserUpdateDataDocument,
     "\n  mutation UserSessionsClose {\n    userSessionsClose\n  }\n": types.UserSessionsCloseDocument,
-    "\n  mutation UserPasswordChangeStart($data: UserPasswordChangeStartSchema!) {\n    userPasswordChangeStart(data: $data)\n  }\n": types.UserPasswordChangeStartDocument,
+    "\n  mutation UserPasswordChangeStart {\n    userPasswordChangeStart\n  }\n": types.UserPasswordChangeStartDocument,
     "\n  mutation UserPasswordChangeFinish($data: UserPasswordChangeFinishSchema!) {\n    userPasswordChangeFinish(data: $data)\n  }\n": types.UserPasswordChangeFinishDocument,
     "\n  mutation UserEmailVerifyOrChangeStart($data: UserEmailVerifyOrChangeStartSchema!) {\n    userEmailVerifyOrChangeStart(data: $data)\n  }\n": types.UserEmailVerifyOrChangeStartDocument,
     "\n  mutation UserEmailVerifyOrChangeFinish($data: UserEmailVerifyOrChangeFinishSchema!) {\n    userEmailVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n": types.UserEmailVerifyOrChangeFinishDocument,
@@ -349,7 +349,7 @@ export function gql(source: "\n  mutation UserSessionsClose {\n    userSessionsC
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation UserPasswordChangeStart($data: UserPasswordChangeStartSchema!) {\n    userPasswordChangeStart(data: $data)\n  }\n"): (typeof documents)["\n  mutation UserPasswordChangeStart($data: UserPasswordChangeStartSchema!) {\n    userPasswordChangeStart(data: $data)\n  }\n"];
+export function gql(source: "\n  mutation UserPasswordChangeStart {\n    userPasswordChangeStart\n  }\n"): (typeof documents)["\n  mutation UserPasswordChangeStart {\n    userPasswordChangeStart\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

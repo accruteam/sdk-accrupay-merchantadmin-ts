@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import { CodegenConfig } from '@graphql-codegen/cli';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
-const config: CodegenConfig = {
+const config: CodegenConfig & Record<string, any> = {
   schema:
     process.env.BACKEND_GRAPHQL_ENDPOINT || 'http://localhost:3334/graphql',
   documents: ['./src/**/*.{ts,tsx,js,jsx}'],
@@ -28,11 +28,13 @@ const config: CodegenConfig = {
         namingConvention: 'keep',
         scalars: {
           BigInt: 'bigint',
+          DateTimeISO: 'Date',
         },
       },
     },
   },
   ignoreNoDocuments: true,
+  inputValueDeprecation: true,
 };
 
 export default config;
