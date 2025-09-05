@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.8.3
+
+### Patch Changes
+
+- 03e2514: update password flow
+
 ## 0.8.2
 
 ### Patch Changes
