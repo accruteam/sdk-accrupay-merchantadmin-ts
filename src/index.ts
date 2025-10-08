@@ -7,6 +7,7 @@ import {
 
 import { HealthChecks } from '@services/healthChecks';
 import { Users } from '@services/users';
+import { Authenticators } from '@services/authenticators';
 import { Merchants } from '@services/merchants';
 import { MerchantInvitations } from '@services/merchantInvitations';
 import { Transactions } from '@services/transactions';
@@ -15,6 +16,8 @@ import { CustomerPaymentMethods } from '@services/customerPaymentMethods';
 import { PaymentPlans } from '@services/paymentPlans';
 import { PaymentPlanTemplates } from '@services/paymentPlanTemplates';
 import { TransactionProviderApplications } from '@services/transactionProviderApplications';
+import { IntegrationLogs } from '@services/integrationLogs';
+import { ApiKeys } from '@services/apiKeys';
 
 import { AccruPayMerchantAdminClientContext } from './types/context.types';
 
@@ -24,6 +27,7 @@ class AccruPayMerchantAdminClient {
 
   public readonly healthChecks: HealthChecks;
   public readonly users: Users;
+  public readonly authenticators: Authenticators;
   public readonly merchants: Merchants;
   public readonly merchantInvitations: MerchantInvitations;
 
@@ -33,6 +37,8 @@ class AccruPayMerchantAdminClient {
   public readonly paymentPlans: PaymentPlans;
   public readonly paymentPlanTemplates: PaymentPlanTemplates;
   public readonly transactionProviderApplications: TransactionProviderApplications;
+  public readonly integrationLogs: IntegrationLogs;
+  public readonly apiKeys: ApiKeys;
 
   constructor(params: IAccruPayMerchantAdminClientParams) {
     this.apolloClient = createApolloClient(params);
@@ -40,6 +46,7 @@ class AccruPayMerchantAdminClient {
 
     this.healthChecks = new HealthChecks(this.context);
     this.users = new Users(this.context);
+    this.authenticators = new Authenticators(this.context);
     this.merchants = new Merchants(this.context);
     this.merchantInvitations = new MerchantInvitations(this.context);
 
@@ -51,6 +58,8 @@ class AccruPayMerchantAdminClient {
     this.transactionProviderApplications = new TransactionProviderApplications(
       this.context,
     );
+    this.integrationLogs = new IntegrationLogs(this.context);
+    this.apiKeys = new ApiKeys(this.context);
   }
 }
 
