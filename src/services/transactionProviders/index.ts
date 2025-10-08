@@ -19,7 +19,7 @@ class TransactionProviders {
       query: MERCHANT_TRANSACTION_PROVIDERS_GET_MANY_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchantTransactionProviders);
+    return parsePlainNodes(data!.userMerchantTransactionProviders);
   }
 
   public async getOne(
@@ -29,7 +29,7 @@ class TransactionProviders {
       query: MERCHANT_TRANSACTION_PROVIDERS_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchantTransactionProvider;
+    return data!.userMerchantTransactionProvider;
   }
 }
 export { TransactionProviders };
