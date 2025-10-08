@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.9.0
+
+### Minor Changes
+
+- 835c9b3: add updated schema services
+
 ## 0.8.3
 
 ### Patch Changes
