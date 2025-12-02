@@ -217,16 +217,3 @@ jobs:
                 }
               ]
             }
-
-      - name: Push to develop branch
-        if: always()
-        continue-on-error: true
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git fetch origin ${{ github.ref_name }}
-          git fetch origin develop
-          git checkout develop
-          git merge origin/${{ github.ref_name }} --no-ff --no-edit --strategy=recursive --strategy-option=theirs --allow-unrelated-histories
-          git push origin develop
