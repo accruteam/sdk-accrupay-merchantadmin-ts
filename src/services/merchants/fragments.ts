@@ -14,7 +14,9 @@ export const MERCHANT_FRAGMENT = gql(`
     entityType
 
     email
+    emailVerificationId
     phone
+    phoneVerificationId
     status
 
     addressCountry

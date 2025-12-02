@@ -69,3 +69,43 @@ export const MERCHANTS_UPDATE_MUTATION = gql(`
     }
   }
 `);
+
+export const MERCHANTS_EMAIL_VERIFY_OR_CHANGE_START_MUTATION = gql(`
+  mutation UserMerchantEmailUpdateStart(
+    $merchantId: String!
+    $data: UserMerchantEmailVerifyStartSchema!
+  ) {
+    userMerchantEmailUpdateStart(merchantId: $merchantId, data: $data)
+  }
+`);
+
+export const MERCHANTS_EMAIL_VERIFY_OR_CHANGE_FINISH_MUTATION = gql(`
+  mutation UserMerchantEmailUpdateFinish(
+    $merchantId: String!
+    $data: UserMerchantEmailVerifyFinishSchema!
+  ) {
+    userMerchantEmailUpdateFinish(merchantId: $merchantId, data: $data) {
+      ...MerchantFragment
+    }
+  }
+`);
+
+export const MERCHANTS_PHONE_VERIFY_OR_CHANGE_START_MUTATION = gql(`
+  mutation UserMerchantPhoneUpdateStart(
+    $merchantId: String!
+    $data: UserMerchantPhoneVerifyStartSchema!
+  ) {
+    userMerchantPhoneUpdateStart(merchantId: $merchantId, data: $data)
+  }
+`);
+
+export const MERCHANTS_PHONE_VERIFY_OR_CHANGE_FINISH_MUTATION = gql(`
+  mutation UserMerchantPhoneUpdateFinish(
+    $merchantId: String!
+    $data: UserMerchantPhoneVerifyFinishSchema!
+  ) {
+    userMerchantPhoneUpdateFinish(merchantId: $merchantId, data: $data) {
+      ...MerchantFragment
+    }
+  }
+`);
