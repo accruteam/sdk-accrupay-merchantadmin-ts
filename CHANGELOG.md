@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.10.0
+
+### Minor Changes
+
+- 583686c: add merchant email and phone verification
+
 ## 0.9.0
 
 ### Minor Changes
