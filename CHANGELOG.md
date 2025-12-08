@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.10.1
+
+### Patch Changes
+
+- 6821a26: add user phone number verification
+
 ## 0.10.0
 
 ### Minor Changes
