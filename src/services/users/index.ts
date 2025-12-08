@@ -7,6 +7,8 @@ import {
   UserPasswordChangeStartMutationVariables,
   UserPasswordResetFinishMutationVariables,
   UserPasswordResetStartMutationVariables,
+  UserPhoneVerifyOrChangeFinishMutationVariables,
+  UserPhoneVerifyOrChangeStartMutationVariables,
   UserQueryVariables,
   UserSignUpWithEmailFinishMutationVariables,
   UserSignUpWithEmailStartMutationVariables,
@@ -22,6 +24,8 @@ import {
   USERS_PASSWORD_CHANGE_START_MUTATION,
   USERS_PASSWORD_RESET_FINISH_MUTATION,
   USERS_PASSWORD_RESET_START_MUTATION,
+  USERS_PHONE_VERIFY_OR_CHANGE_FINISH_MUTATION,
+  USERS_PHONE_VERIFY_OR_CHANGE_START_MUTATION,
   USERS_SESSIONS_CLOSE_MUTATION,
   USERS_SIGN_UP_WITH_EMAIL_FINISH_MUTATION,
   USERS_SIGN_UP_WITH_EMAIL_START_MUTATION,
@@ -123,6 +127,26 @@ class Users {
       variables,
     });
     return data!.userEmailVerifyOrChangeFinish;
+  }
+
+  public async phoneVerifyOrChangeStart(
+    variables: UserPhoneVerifyOrChangeStartMutationVariables,
+  ) {
+    const { data } = await this.context.apolloClient.mutate({
+      mutation: USERS_PHONE_VERIFY_OR_CHANGE_START_MUTATION,
+      variables,
+    });
+    return data!.userPhoneVerifyOrChangeStart;
+  }
+
+  public async phoneVerifyOrChangeFinish(
+    variables: UserPhoneVerifyOrChangeFinishMutationVariables,
+  ) {
+    const { data } = await this.context.apolloClient.mutate({
+      mutation: USERS_PHONE_VERIFY_OR_CHANGE_FINISH_MUTATION,
+      variables,
+    });
+    return data!.userPhoneVerifyOrChangeFinish;
   }
 
   public async handleLoginAttempt(

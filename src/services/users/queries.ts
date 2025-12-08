@@ -66,6 +66,20 @@ export const USERS_EMAIL_VERIFY_OR_CHANGE_FINISH_MUTATION = gql(`
   }
 `);
 
+export const USERS_PHONE_VERIFY_OR_CHANGE_START_MUTATION = gql(`
+  mutation UserPhoneVerifyOrChangeStart($data: UserPhoneVerifyOrChangeStartSchema!) {
+    userPhoneVerifyOrChangeStart(data: $data)
+  }
+`);
+
+export const USERS_PHONE_VERIFY_OR_CHANGE_FINISH_MUTATION = gql(`
+  mutation UserPhoneVerifyOrChangeFinish($data: UserPhoneVerifyOrChangeFinishSchema!) {
+    userPhoneVerifyOrChangeFinish(data: $data) {
+      ...UserFragment
+    }
+  }
+`);
+
 export const USERS_HANDLE_LOGIN_ATTEMPT_MUTATION = gql(`
   mutation UserHandleLoginAttempt($email: String!) {
     userHandleLoginAttempt(email: $email)

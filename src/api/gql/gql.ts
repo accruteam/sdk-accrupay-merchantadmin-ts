@@ -93,6 +93,8 @@ type Documents = {
     "\n  mutation UserPasswordChangeFinish($data: UserPasswordChangeFinishSchema!) {\n    userPasswordChangeFinish(data: $data)\n  }\n": typeof types.UserPasswordChangeFinishDocument,
     "\n  mutation UserEmailVerifyOrChangeStart($data: UserEmailVerifyOrChangeStartSchema!) {\n    userEmailVerifyOrChangeStart(data: $data)\n  }\n": typeof types.UserEmailVerifyOrChangeStartDocument,
     "\n  mutation UserEmailVerifyOrChangeFinish($data: UserEmailVerifyOrChangeFinishSchema!) {\n    userEmailVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n": typeof types.UserEmailVerifyOrChangeFinishDocument,
+    "\n  mutation UserPhoneVerifyOrChangeStart($data: UserPhoneVerifyOrChangeStartSchema!) {\n    userPhoneVerifyOrChangeStart(data: $data)\n  }\n": typeof types.UserPhoneVerifyOrChangeStartDocument,
+    "\n  mutation UserPhoneVerifyOrChangeFinish($data: UserPhoneVerifyOrChangeFinishSchema!) {\n    userPhoneVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n": typeof types.UserPhoneVerifyOrChangeFinishDocument,
     "\n  mutation UserHandleLoginAttempt($email: String!) {\n    userHandleLoginAttempt(email: $email)\n  }\n": typeof types.UserHandleLoginAttemptDocument,
     "\n  mutation UserPasswordResetStart($data: UserPasswordResetStartSchema!) {\n    userPasswordResetStart(data: $data)\n  }\n": typeof types.UserPasswordResetStartDocument,
     "\n  mutation UserPasswordResetFinish($data: UserPasswordResetFinishSchema!) {\n    userPasswordResetFinish(data: $data)\n  }\n": typeof types.UserPasswordResetFinishDocument,
@@ -177,6 +179,8 @@ const documents: Documents = {
     "\n  mutation UserPasswordChangeFinish($data: UserPasswordChangeFinishSchema!) {\n    userPasswordChangeFinish(data: $data)\n  }\n": types.UserPasswordChangeFinishDocument,
     "\n  mutation UserEmailVerifyOrChangeStart($data: UserEmailVerifyOrChangeStartSchema!) {\n    userEmailVerifyOrChangeStart(data: $data)\n  }\n": types.UserEmailVerifyOrChangeStartDocument,
     "\n  mutation UserEmailVerifyOrChangeFinish($data: UserEmailVerifyOrChangeFinishSchema!) {\n    userEmailVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n": types.UserEmailVerifyOrChangeFinishDocument,
+    "\n  mutation UserPhoneVerifyOrChangeStart($data: UserPhoneVerifyOrChangeStartSchema!) {\n    userPhoneVerifyOrChangeStart(data: $data)\n  }\n": types.UserPhoneVerifyOrChangeStartDocument,
+    "\n  mutation UserPhoneVerifyOrChangeFinish($data: UserPhoneVerifyOrChangeFinishSchema!) {\n    userPhoneVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n": types.UserPhoneVerifyOrChangeFinishDocument,
     "\n  mutation UserHandleLoginAttempt($email: String!) {\n    userHandleLoginAttempt(email: $email)\n  }\n": types.UserHandleLoginAttemptDocument,
     "\n  mutation UserPasswordResetStart($data: UserPasswordResetStartSchema!) {\n    userPasswordResetStart(data: $data)\n  }\n": types.UserPasswordResetStartDocument,
     "\n  mutation UserPasswordResetFinish($data: UserPasswordResetFinishSchema!) {\n    userPasswordResetFinish(data: $data)\n  }\n": types.UserPasswordResetFinishDocument,
@@ -512,6 +516,14 @@ export function gql(source: "\n  mutation UserEmailVerifyOrChangeStart($data: Us
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation UserEmailVerifyOrChangeFinish($data: UserEmailVerifyOrChangeFinishSchema!) {\n    userEmailVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  mutation UserEmailVerifyOrChangeFinish($data: UserEmailVerifyOrChangeFinishSchema!) {\n    userEmailVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UserPhoneVerifyOrChangeStart($data: UserPhoneVerifyOrChangeStartSchema!) {\n    userPhoneVerifyOrChangeStart(data: $data)\n  }\n"): (typeof documents)["\n  mutation UserPhoneVerifyOrChangeStart($data: UserPhoneVerifyOrChangeStartSchema!) {\n    userPhoneVerifyOrChangeStart(data: $data)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UserPhoneVerifyOrChangeFinish($data: UserPhoneVerifyOrChangeFinishSchema!) {\n    userPhoneVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  mutation UserPhoneVerifyOrChangeFinish($data: UserPhoneVerifyOrChangeFinishSchema!) {\n    userPhoneVerifyOrChangeFinish(data: $data) {\n      ...UserFragment\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

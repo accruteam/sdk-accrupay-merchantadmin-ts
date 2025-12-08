@@ -1475,6 +1475,8 @@ type Mutation {
   userPasswordChangeStart: DateTimeISO!
   userPasswordResetFinish(data: UserPasswordResetFinishSchema!): String!
   userPasswordResetStart(data: UserPasswordResetStartSchema!): String!
+  userPhoneVerifyOrChangeFinish(data: UserPhoneVerifyOrChangeFinishSchema!): User!
+  userPhoneVerifyOrChangeStart(data: UserPhoneVerifyOrChangeStartSchema!): DateTimeISO!
   userReceivedMerchantInvitationAccept(invitationId: String!): MerchantUserInvitation!
   userReceivedMerchantInvitationReject(invitationId: String!): MerchantUserInvitation!
   userSessionsClose: DateTimeISO!
@@ -1837,6 +1839,15 @@ input UserPasswordResetStartSchema {
   email: String!
 }
 
+input UserPhoneVerifyOrChangeFinishSchema {
+  phone: String!
+  verificationCode: String!
+}
+
+input UserPhoneVerifyOrChangeStartSchema {
+  phone: String!
+}
+
 input UserSignUpWithEmailFinishSchema {
   email: String!
   password: String!
@@ -1854,5 +1865,4 @@ input UserSignUpWithEmailVerifySchema {
 
 input UserUpdateDataSchema {
   name: String!
-  phone: String!
 }
