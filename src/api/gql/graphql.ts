@@ -2931,6 +2931,7 @@ export type UserSignUpWithEmailVerifySchema = {
 
 export type UserUpdateDataSchema = {
   name: Scalars['String']['input'];
+  phone?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MerchantApiKeyFragmentFragment = { __typename?: 'MerchantApiKey', id: string, merchantId: string, archivedAt?: Date | null, createdAt: Date, updatedAt: Date };
