@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.10.2
+
+### Patch Changes
+
+- a5739a8: fix phone number param on user update
+
 ## 0.10.1
 
 ### Patch Changes
