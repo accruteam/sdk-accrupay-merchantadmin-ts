@@ -1865,4 +1865,5 @@ input UserSignUpWithEmailVerifySchema {
 
 input UserUpdateDataSchema {
   name: String!
+  phone: String
 }

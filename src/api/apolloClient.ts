@@ -16,8 +16,11 @@ import {
   Kind,
   buildClientSchema,
 } from 'graphql';
-
 import introspectionResult from './gql/schema.graphql.json' assert { type: 'json' };
+import packageJson from '../../package.json' assert { type: 'json' };
+
+const SDK_VERSION =
+  typeof packageJson?.version === 'string' ? packageJson.version : null;
 
 const AccruPayEnvironments = {
   production: 'https://api.pay.accru.co/graphql',
@@ -129,6 +132,9 @@ export const createApolloClient = ({
         ...headers,
         ...(selectedToken && {
           authorization: `Bearer ${selectedToken}`,
+        }),
+        ...(SDK_VERSION && {
+          'accrupay-merchantadmin-sdk-version': SDK_VERSION,
         }),
       },
     };
