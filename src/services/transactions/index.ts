@@ -19,7 +19,7 @@ class Transactions {
       query: MERCHANT_TRANSACTIONS_GET_MANY_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchantTransactions);
+    return parsePlainNodes(data!.userMerchantTransactions);
   }
 
   public async getOne(variables: UserMerchantTransactionQueryVariables) {
@@ -27,7 +27,7 @@ class Transactions {
       query: MERCHANT_TRANSACTIONS_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchantTransaction;
+    return data!.userMerchantTransaction;
   }
 
   public async syncOne(

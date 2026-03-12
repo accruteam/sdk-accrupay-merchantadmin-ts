@@ -23,7 +23,7 @@ class ApiKeys {
       query: API_KEYS_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchantApiKey;
+    return data!.userMerchantApiKey;
   }
 
   public async getMany(variables: UserMerchantApiKeysQueryVariables) {
@@ -31,7 +31,7 @@ class ApiKeys {
       query: API_KEYS_GET_ALL_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchantApiKeys);
+    return parsePlainNodes(data!.userMerchantApiKeys);
   }
 
   public async create(variables: UserMerchantApiKeyCreateMutationVariables) {

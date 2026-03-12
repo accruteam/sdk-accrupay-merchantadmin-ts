@@ -41,7 +41,7 @@ class Users {
       query: USERS_GET_CURRENT_QUERY,
       variables,
     });
-    return data.user;
+    return data!.user;
   }
 
   public async signUpWithEmailStart(

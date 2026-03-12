@@ -6,16 +6,12 @@ export default defineConfig({
   test: {
     setupFiles: ['dotenv/config'],
     pool: 'forks',
-    poolOptions: {
-      forks: {
-        singleFork: true,
-      },
-    },
+    maxWorkers: 1,
     maxConcurrency: 4,
     coverage: {
       enabled: true,
       provider: 'v8',
-      reporter: [/* 'text', */ 'text-summary', 'json', 'html'],
+      reporter: ['text-summary', 'json', 'html'],
       reportsDirectory: './test/coverage',
       include: ['src/**/*.ts'],
       exclude: [

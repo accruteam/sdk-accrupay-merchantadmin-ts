@@ -25,7 +25,7 @@ class TransactionProviderApplications {
       query: TRANSACTION_PROVIDER_APPLICATIONS_GET_MANY_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchantTransactionProviderApplications);
+    return parsePlainNodes(data!.userMerchantTransactionProviderApplications);
   }
 
   public async getOne(
@@ -35,7 +35,7 @@ class TransactionProviderApplications {
       query: TRANSACTION_PROVIDER_APPLICATIONS_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchantTransactionProviderApplication;
+    return data!.userMerchantTransactionProviderApplication;
   }
 
   public async apply(
@@ -65,7 +65,7 @@ class TransactionProviderApplications {
       query: TRANSACTION_PROVIDER_APPLICATIONS_GET_CREDENTIALS_SCHEMA_QUERY,
       variables,
     });
-    return data.userMerchantTransactionProviderGetCredentialsSchema;
+    return data!.userMerchantTransactionProviderGetCredentialsSchema;
   }
 }
 

@@ -19,7 +19,7 @@ class PaymentPlans {
       query: MERCHANT_PAYMENT_PLANS_GET_MANY_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchantPaymentPlans);
+    return parsePlainNodes(data!.userMerchantPaymentPlans);
   }
 
   public async getOne(variables: UserMerchantPaymentPlanQueryVariables) {
@@ -27,7 +27,7 @@ class PaymentPlans {
       query: MERCHANT_PAYMENT_PLANS_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchantPaymentPlan;
+    return data!.userMerchantPaymentPlan;
   }
 
   public async syncOne(
