@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.11.1
+
+### Patch Changes
+
+- 5c77c18: update apollo client approach
+
 ## 0.11.0
 
 ### Minor Changes
