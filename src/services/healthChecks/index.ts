@@ -10,7 +10,7 @@ class HealthChecks {
       query: HEALTH_CHECKS_QUERY,
       variables,
     });
-    return data.healthCheck;
+    return data!.healthCheck;
   }
 }
 

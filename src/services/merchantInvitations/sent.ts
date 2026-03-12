@@ -21,7 +21,7 @@ class MerchantSentInvitations {
       query: MERCHANT_SENT_INVITATIONS_GET_MANY_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchantSentInvitations);
+    return parsePlainNodes(data!.userMerchantSentInvitations);
   }
 
   public async getOne(variables: UserMerchantSentInvitationQueryVariables) {
@@ -29,7 +29,7 @@ class MerchantSentInvitations {
       query: MERCHANT_SENT_INVITATIONS_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchantSentInvitation;
+    return data!.userMerchantSentInvitation;
   }
 
   public async create(

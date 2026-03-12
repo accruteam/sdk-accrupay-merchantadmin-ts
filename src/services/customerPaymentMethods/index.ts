@@ -21,7 +21,7 @@ class CustomerPaymentMethods {
       query: MERCHANT_CUSTOMER_PAYMENT_METHODS_GET_MANY_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchantCustomerPaymentMethods);
+    return parsePlainNodes(data!.userMerchantCustomerPaymentMethods);
   }
 
   public async getOne(
@@ -31,7 +31,7 @@ class CustomerPaymentMethods {
       query: MERCHANT_CUSTOMER_PAYMENT_METHODS_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchantCustomerPaymentMethod;
+    return data!.userMerchantCustomerPaymentMethod;
   }
 
   public async syncOne(

@@ -29,7 +29,7 @@ class Merchants {
       query: MERCHANTS_GET_MANY_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchants);
+    return parsePlainNodes(data!.userMerchants);
   }
 
   public async getOne(variables: UserMerchantQueryVariables) {
@@ -37,7 +37,7 @@ class Merchants {
       query: MERCHANTS_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchant;
+    return data!.userMerchant;
   }
 
   public async create(variables: UserMerchantCreateMutationVariables) {

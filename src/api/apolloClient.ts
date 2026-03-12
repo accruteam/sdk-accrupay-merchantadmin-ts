@@ -1,12 +1,12 @@
 import {
   ApolloClient,
   InMemoryCache,
-  createHttpLink,
   ApolloLink,
-} from '@apollo/client/core';
-import { onError } from '@apollo/client/link/error';
-import { NetworkError } from '@apollo/client/errors';
-import { setContext } from '@apollo/client/link/context';
+  CombinedGraphQLErrors,
+} from '@apollo/client';
+import { ErrorLink } from '@apollo/client/link/error';
+import { SetContextLink } from '@apollo/client/link/context';
+import { HttpLink } from '@apollo/client/link/http';
 import { withScalars } from 'apollo-link-scalars';
 import {
   GraphQLError,
@@ -37,7 +37,7 @@ interface IAccruPayMerchantAdminClientParams {
 
   onAuthError?: () => void;
   onGraphQLError?: (errors: ReadonlyArray<GraphQLFormattedError>) => void;
-  onNetworkError?: (error: NetworkError) => void;
+  onNetworkError?: (error: Error) => void;
 }
 
 // eslint-disable-next-line func-names
@@ -98,20 +98,17 @@ export const createApolloClient = ({
   onNetworkError,
   onAuthError,
 }: IAccruPayMerchantAdminClientParams) => {
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors?.length && typeof onGraphQLError === 'function')
-      onGraphQLError(graphQLErrors);
-
-    if (networkError && typeof onNetworkError === 'function')
-      onNetworkError(networkError);
-
-    if (
-      graphQLErrors?.some(
-        error => error.extensions?.code === 'UNAUTHENTICATED',
-      ) &&
-      typeof onAuthError === 'function'
-    )
-      onAuthError();
+  const errorLink = new ErrorLink(({ error }) => {
+    if (CombinedGraphQLErrors.is(error)) {
+      if (typeof onGraphQLError === 'function') onGraphQLError(error.errors);
+      if (
+        error.errors.some(e => e.extensions?.code === 'UNAUTHENTICATED') &&
+        typeof onAuthError === 'function'
+      )
+        onAuthError();
+    } else if (error && typeof onNetworkError === 'function') {
+      onNetworkError(error instanceof Error ? error : new Error(String(error)));
+    }
   });
 
   const scalarLink = withScalars({
@@ -121,7 +118,7 @@ export const createApolloClient = ({
     },
   });
 
-  const authLink = setContext(async (_, { headers }) => {
+  const authLink = new SetContextLink(async prevContext => {
     const selectedToken =
       typeof getAuthToken === 'function'
         ? (await getAuthToken()) || null
@@ -129,7 +126,7 @@ export const createApolloClient = ({
 
     return {
       headers: {
-        ...headers,
+        ...(prevContext?.headers ?? {}),
         ...(selectedToken && {
           authorization: `Bearer ${selectedToken}`,
         }),
@@ -140,7 +137,7 @@ export const createApolloClient = ({
     };
   });
 
-  const httpLink = createHttpLink({
+  const httpLink = new HttpLink({
     uri: url || AccruPayEnvironments[environment || 'production'],
   });
 
