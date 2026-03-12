@@ -21,7 +21,7 @@ class IntegrationLogs {
       query: INTEGRATION_LOGS_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchantTransactionProviderIntegrationLog;
+    return data!.userMerchantTransactionProviderIntegrationLog;
   }
 
   public async getMany(
@@ -31,7 +31,9 @@ class IntegrationLogs {
       query: INTEGRATION_LOGS_GET_ALL_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchantTransactionProviderIntegrationLogs);
+    return parsePlainNodes(
+      data!.userMerchantTransactionProviderIntegrationLogs,
+    );
   }
 
   public async createAuthenticatorSession(

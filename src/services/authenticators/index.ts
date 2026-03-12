@@ -25,7 +25,7 @@ class Authenticators {
       query: AUTHENTICATORS_GET_ONE_QUERY,
       variables,
     });
-    return data.userAuthenticator;
+    return data!.userAuthenticator;
   }
 
   public async getAll(variables: UserAuthenticatorsQueryVariables) {
@@ -33,7 +33,7 @@ class Authenticators {
       query: AUTHENTICATORS_GET_ALL_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userAuthenticators);
+    return parsePlainNodes(data!.userAuthenticators);
   }
 
   public async revoke(variables: UserAuthenticatorRevokeMutationVariables) {

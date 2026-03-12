@@ -23,7 +23,7 @@ class UserReceivedMerchantInvitations {
       query: USER_RECEIVED_MERCHANT_INVITATIONS_GET_MANY_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userReceivedMerchantInvitations);
+    return parsePlainNodes(data!.userReceivedMerchantInvitations);
   }
 
   public async getOne(variables: UserReceivedMerchantInvitationQueryVariables) {
@@ -31,7 +31,7 @@ class UserReceivedMerchantInvitations {
       query: USER_RECEIVED_MERCHANT_INVITATIONS_GET_ONE_QUERY,
       variables,
     });
-    return data.userReceivedMerchantInvitation;
+    return data!.userReceivedMerchantInvitation;
   }
 
   public async accept(

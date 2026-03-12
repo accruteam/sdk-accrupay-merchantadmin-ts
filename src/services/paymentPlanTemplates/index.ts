@@ -21,7 +21,7 @@ class PaymentPlanTemplates {
       query: MERCHANT_PAYMENT_PLAN_TEMPLATES_GET_MANY_QUERY,
       variables,
     });
-    return parsePlainNodes(data.userMerchantPaymentPlanTemplates);
+    return parsePlainNodes(data!.userMerchantPaymentPlanTemplates);
   }
 
   public async getOne(
@@ -31,7 +31,7 @@ class PaymentPlanTemplates {
       query: MERCHANT_PAYMENT_PLAN_TEMPLATES_GET_ONE_QUERY,
       variables,
     });
-    return data.userMerchantPaymentPlanTemplate;
+    return data!.userMerchantPaymentPlanTemplate;
   }
 
   public async syncOne(

@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client/core';
+import { ApolloClient } from '@apollo/client';
 
 import {
   IAccruPayMerchantAdminClientParams,
@@ -22,7 +22,7 @@ import { ApiKeys } from '@services/apiKeys';
 import { AccruPayMerchantAdminClientContext } from './types/context.types';
 
 class AccruPayMerchantAdminClient {
-  public readonly apolloClient: ApolloClient<unknown>;
+  public readonly apolloClient: ApolloClient;
   private readonly context: AccruPayMerchantAdminClientContext;
 
   public readonly healthChecks: HealthChecks;
