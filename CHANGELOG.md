@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.11.0
+
+### Minor Changes
+
+- bec1bc7: update sdk for new gateways
+
 ## 0.10.2
 
 ### Patch Changes
