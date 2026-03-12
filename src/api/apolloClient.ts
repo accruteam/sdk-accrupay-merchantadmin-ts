@@ -3,16 +3,18 @@ import {
   InMemoryCache,
   ApolloLink,
   CombinedGraphQLErrors,
+  ServerError,
 } from '@apollo/client';
 import { ErrorLink } from '@apollo/client/link/error';
 import { SetContextLink } from '@apollo/client/link/context';
 import { HttpLink } from '@apollo/client/link/http';
 import { withScalars } from 'apollo-link-scalars';
+import { DateTimeISOResolver } from 'graphql-scalars';
 import {
   GraphQLError,
-  GraphQLFormattedError,
+  type GraphQLFormattedError,
   GraphQLScalarType,
-  IntrospectionQuery,
+  type IntrospectionQuery,
   Kind,
   buildClientSchema,
 } from 'graphql';
@@ -37,13 +39,15 @@ interface IAccruPayMerchantAdminClientParams {
 
   onAuthError?: () => void;
   onGraphQLError?: (errors: ReadonlyArray<GraphQLFormattedError>) => void;
-  onNetworkError?: (error: Error) => void;
+  onNetworkError?: (error: ServerError | Error) => void;
 }
 
-// eslint-disable-next-line func-names
-(BigInt.prototype as any).toJSON = function () {
-  return this.toString();
-};
+if (!(BigInt.prototype as any).toJSON) {
+  // eslint-disable-next-line func-names
+  (BigInt.prototype as any).toJSON = function () {
+    return this.toString();
+  };
+}
 
 const BigIntScalar = new GraphQLScalarType({
   name: 'BigInt',
@@ -70,7 +74,7 @@ const BigIntScalar = new GraphQLScalarType({
       const bigint = BigInt(ast.value);
       if (ast.value !== bigint.toString()) throw new Error();
       return bigint;
-    } catch (err) {
+    } catch {
       throw new GraphQLError(`BigInt cannot represent value: ${ast.value}`);
     }
   },
@@ -100,21 +104,35 @@ export const createApolloClient = ({
 }: IAccruPayMerchantAdminClientParams) => {
   const errorLink = new ErrorLink(({ error }) => {
     if (CombinedGraphQLErrors.is(error)) {
-      if (typeof onGraphQLError === 'function') onGraphQLError(error.errors);
+      const errors = error.errors.map(e => ({
+        ...e,
+        validationErrors: (e.extensions as any)?.exception?.validationErrors,
+      }));
+
+      if (typeof onGraphQLError === 'function') onGraphQLError(errors);
+
       if (
-        error.errors.some(e => e.extensions?.code === 'UNAUTHENTICATED') &&
+        errors.some(e => e.extensions?.code === 'UNAUTHENTICATED') &&
         typeof onAuthError === 'function'
       )
         onAuthError();
-    } else if (error && typeof onNetworkError === 'function') {
-      onNetworkError(error instanceof Error ? error : new Error(String(error)));
+
+      return;
     }
+
+    if (ServerError.is(error)) {
+      if (typeof onNetworkError === 'function') onNetworkError(error);
+      return;
+    }
+
+    if (error && typeof onNetworkError === 'function') onNetworkError(error);
   });
 
   const scalarLink = withScalars({
     schema,
     typesMap: {
       BigInt: BigIntScalar,
+      DateTimeISO: DateTimeISOResolver,
     },
   });
 
@@ -137,8 +155,12 @@ export const createApolloClient = ({
     };
   });
 
+  const selectedEnvironmentUrl =
+    AccruPayEnvironments[environment || 'production'];
+  if (!selectedEnvironmentUrl && !url) throw new Error('Invalid environment.');
+
   const httpLink = new HttpLink({
-    uri: url || AccruPayEnvironments[environment || 'production'],
+    uri: url || selectedEnvironmentUrl,
   });
 
   return new ApolloClient({
