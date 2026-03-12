@@ -84,15 +84,13 @@ jobs:
         if: steps.check-pr.outputs.has_pr == 'true'
         id: pr-message
         uses: actions/github-script@v8
+        env:
+          PR_BODY: ${{ steps.check-pr.outputs.pr_body }}
         with:
           result-encoding: string
           script: |
-            const { slackifyMarkdown } = await import('slackify-markdown');
-
-            const body = process.env.PR_BODY || '';
-            return slackifyMarkdown(body);
-        env:
-          PR_BODY: ${{ steps.check-pr.outputs.pr_body }}
+            const { slackifyMarkdown } = require('slackify-markdown');
+            return slackifyMarkdown(process.env.PR_BODY || '');
 
       - name: Send Slack notification for PR
         if: steps.check-pr.outputs.has_pr == 'true'
@@ -148,17 +146,19 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         id: get-release
         uses: actions/github-script@v8
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           result-encoding: string
           script: |
-            const { slackifyMarkdown } = await import('slackify-markdown');
-            const release = await github.rest.repos.getReleaseByTag({
+            const { slackifyMarkdown } = require('slackify-markdown');
+            const tag = `v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}`;
+            const { data: release } = await github.rest.repos.getReleaseByTag({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag: "v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}"
+              tag,
             });
-            const body = release.data.body || '';
-            return slackifyMarkdown(body);
+            return slackifyMarkdown(release.body || '');
 
       - name: Send a Slack notification
         if: steps.changesets.outputs.published == 'true'
