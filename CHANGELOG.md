@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.11.2
+
+### Patch Changes
+
+- 3a822a1: update apollo client error handling
+
 ## 0.11.1
 
 ### Patch Changes
