@@ -1,36 +1,35 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloLink,
-  CombinedGraphQLErrors,
-  ServerError,
-} from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloLink } from '@apollo/client';
 import { ErrorLink } from '@apollo/client/link/error';
+import {
+  CombinedGraphQLErrors,
+  CombinedProtocolErrors,
+  ServerError,
+} from '@apollo/client/errors';
 import { SetContextLink } from '@apollo/client/link/context';
 import { HttpLink } from '@apollo/client/link/http';
 import { withScalars } from 'apollo-link-scalars';
 import { DateTimeISOResolver } from 'graphql-scalars';
 import {
   GraphQLError,
-  type GraphQLFormattedError,
+  GraphQLFormattedError,
   GraphQLScalarType,
-  type IntrospectionQuery,
+  IntrospectionQuery,
   Kind,
   buildClientSchema,
 } from 'graphql';
 import introspectionResult from './gql/schema.graphql.json' assert { type: 'json' };
-import packageJson from '../../package.json' assert { type: 'json' };
+import packageInfo from '../../package.json' assert { type: 'json' };
 
-const SDK_VERSION =
-  typeof packageJson?.version === 'string' ? packageJson.version : null;
+const ACCRUPAY_SDK_NAME = packageInfo.name || '@accrupay/react';
+const ACCRUPAY_SDK_VERSION = packageInfo.version || 'UNKNOWN';
 
-const AccruPayEnvironments = {
+const AccruPayEnvironmentUrls = {
   production: 'https://api.pay.accru.co/graphql',
   qa: 'https://api.qa.pay.accru.co/graphql',
 };
 
 interface IAccruPayMerchantAdminClientParams {
-  environment?: keyof typeof AccruPayEnvironments;
+  environment?: keyof typeof AccruPayEnvironmentUrls;
 
   /** Overrides the environment base URL */
   url?: string;
@@ -39,7 +38,7 @@ interface IAccruPayMerchantAdminClientParams {
 
   onAuthError?: () => void;
   onGraphQLError?: (errors: ReadonlyArray<GraphQLFormattedError>) => void;
-  onNetworkError?: (error: ServerError | Error) => void;
+  onNetworkError?: (error: GraphQLFormattedError) => void;
 }
 
 if (!(BigInt.prototype as any).toJSON) {
@@ -49,7 +48,7 @@ if (!(BigInt.prototype as any).toJSON) {
   };
 }
 
-const BigIntScalar = new GraphQLScalarType({
+const BigIntResolver = new GraphQLScalarType({
   name: 'BigInt',
   description:
     'The `BigInt` scalar type represents non-fractional signed whole numeric values.',
@@ -104,19 +103,20 @@ export const createApolloClient = ({
 }: IAccruPayMerchantAdminClientParams) => {
   const errorLink = new ErrorLink(({ error }) => {
     if (CombinedGraphQLErrors.is(error)) {
-      const errors = error.errors.map(e => ({
-        ...e,
-        validationErrors: (e.extensions as any)?.exception?.validationErrors,
-      }));
-
-      if (typeof onGraphQLError === 'function') onGraphQLError(errors);
+      if (error.errors.length && typeof onGraphQLError === 'function')
+        onGraphQLError(error.errors);
 
       if (
-        errors.some(e => e.extensions?.code === 'UNAUTHENTICATED') &&
+        error.errors.some(err => err.extensions?.code === 'UNAUTHENTICATED') &&
         typeof onAuthError === 'function'
       )
         onAuthError();
 
+      return;
+    }
+
+    if (CombinedProtocolErrors.is(error)) {
+      if (typeof onNetworkError === 'function') onNetworkError(error);
       return;
     }
 
@@ -125,13 +125,14 @@ export const createApolloClient = ({
       return;
     }
 
-    if (error && typeof onNetworkError === 'function') onNetworkError(error);
+    if (error && typeof onNetworkError === 'function')
+      onNetworkError(error instanceof Error ? error : new Error(String(error)));
   });
 
   const scalarLink = withScalars({
     schema,
     typesMap: {
-      BigInt: BigIntScalar,
+      BigInt: BigIntResolver,
       DateTimeISO: DateTimeISOResolver,
     },
   });
@@ -148,15 +149,14 @@ export const createApolloClient = ({
         ...(selectedToken && {
           authorization: `Bearer ${selectedToken}`,
         }),
-        ...(SDK_VERSION && {
-          'accrupay-merchantadmin-sdk-version': SDK_VERSION,
-        }),
+        'accrupay-merchantadmin-sdk-name': ACCRUPAY_SDK_NAME,
+        'accrupay-merchantadmin-sdk-version': ACCRUPAY_SDK_VERSION,
       },
     };
   });
 
   const selectedEnvironmentUrl =
-    AccruPayEnvironments[environment || 'production'];
+    AccruPayEnvironmentUrls[environment || 'production'];
   if (!selectedEnvironmentUrl && !url) throw new Error('Invalid environment.');
 
   const httpLink = new HttpLink({

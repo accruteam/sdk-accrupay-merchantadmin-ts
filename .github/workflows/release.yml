@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
 
-      - name: Setup Node.js 22
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -84,13 +84,14 @@ jobs:
         if: steps.check-pr.outputs.has_pr == 'true'
         id: pr-message
         uses: actions/github-script@v8
-        env:
-          PR_BODY: ${{ steps.check-pr.outputs.pr_body }}
         with:
           result-encoding: string
           script: |
             const { slackifyMarkdown } = require('slackify-markdown');
-            return slackifyMarkdown(process.env.PR_BODY || '');
+            const body = process.env.PR_BODY || '';
+            return slackifyMarkdown(body);
+        env:
+          PR_BODY: ${{ steps.check-pr.outputs.pr_body }}
 
       - name: Send Slack notification for PR
         if: steps.check-pr.outputs.has_pr == 'true'
@@ -146,19 +147,20 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         id: get-release
         uses: actions/github-script@v8
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           result-encoding: string
           script: |
             const { slackifyMarkdown } = require('slackify-markdown');
-            const tag = `v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}`;
-            const { data: release } = await github.rest.repos.getReleaseByTag({
+            const tag = process.env.RELEASE_TAG;
+            const release = await github.rest.repos.getReleaseByTag({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag,
+              tag
             });
-            return slackifyMarkdown(release.body || '');
+            const body = release?.data?.body || '';
+            return slackifyMarkdown(body);
+        env:
+          RELEASE_TAG: v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}
 
       - name: Send a Slack notification
         if: steps.changesets.outputs.published == 'true'
@@ -225,3 +227,19 @@ jobs:
                 }
               ]
             }
+
+      - name: Sync changes from main into develop
+        if: github.ref == 'refs/heads/main' && steps.changesets.outputs.published == 'true'
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+          git fetch origin
+      
+          git checkout develop
+          git reset --hard origin/develop
+      
+          git merge origin/main -X theirs --no-ff --no-edit
+          
+          git push origin develop
