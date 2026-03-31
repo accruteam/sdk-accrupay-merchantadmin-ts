@@ -18,6 +18,7 @@ import { PaymentPlanTemplates } from '@services/paymentPlanTemplates';
 import { TransactionProviderApplications } from '@services/transactionProviderApplications';
 import { IntegrationLogs } from '@services/integrationLogs';
 import { ApiKeys } from '@services/apiKeys';
+import { Admin } from '@services/admin';
 
 import { AccruPayMerchantAdminClientContext } from './types/context.types';
 
@@ -39,6 +40,7 @@ class AccruPayMerchantAdminClient {
   public readonly transactionProviderApplications: TransactionProviderApplications;
   public readonly integrationLogs: IntegrationLogs;
   public readonly apiKeys: ApiKeys;
+  public readonly admin: Admin;
 
   constructor(params: IAccruPayMerchantAdminClientParams) {
     this.apolloClient = createApolloClient(params);
@@ -60,6 +62,7 @@ class AccruPayMerchantAdminClient {
     );
     this.integrationLogs = new IntegrationLogs(this.context);
     this.apiKeys = new ApiKeys(this.context);
+    this.admin = new Admin(this.context);
   }
 }
 

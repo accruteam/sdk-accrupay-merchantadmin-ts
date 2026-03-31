@@ -12,12 +12,15 @@ import {
 } from './queries';
 
 import { Totp } from './totp';
+import { BackupCode } from './backupCode';
 
 class Authenticators {
   public readonly totp: Totp;
+  public readonly backupCode: BackupCode;
 
   constructor(private context: AccruPayMerchantAdminClientContext) {
     this.totp = new Totp(context);
+    this.backupCode = new BackupCode(context);
   }
 
   public async getOne(variables: UserAuthenticatorQueryVariables) {
