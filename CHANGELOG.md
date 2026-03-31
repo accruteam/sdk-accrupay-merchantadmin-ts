@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.12.0
+
+### Minor Changes
+
+- a7f51c1: add backup code and admin services
+
 ## 0.11.2
 
 ### Patch Changes
