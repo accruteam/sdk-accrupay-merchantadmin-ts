@@ -9,6 +9,7 @@ enum AUTHENTICATOR_STATUS {
 }
 
 enum AUTHENTICATOR_TYPE {
+  BACKUP_CODE
   TOTP
 }
 
@@ -112,6 +113,16 @@ type Authenticator {
   updatedAt: DateTimeISO!
 }
 
+type AuthenticatorBackupCodeResult {
+  authenticator: Authenticator!
+  codes: [String!]!
+}
+
+input AuthenticatorChallengeSchema {
+  payload: JSON!
+  type: AUTHENTICATOR_TYPE!
+}
+
 input AuthenticatorEnrollmentConfirmSchema {
   enrollmentId: String!
   label: String
@@ -173,6 +184,14 @@ type AuthenticatorSession {
   ip: String
   metadata: JSON
   sessionId: ID!
+}
+
+input BackupCodeGenerateSchema {
+  label: String
+}
+
+input BackupCodeRegenerateSchema {
+  label: String
 }
 
 """
@@ -1540,17 +1559,19 @@ type Mutation {
     """Transaction token, only when the transaction is not finished/expired."""
     token: String @deprecated(reason: "Use Transaction Session API.")
   ): MerchantTransaction!
-  userAuthenticatorRevoke(authenticatorChallengePayload: JSON!, authenticatorId: String!): Authenticator!
+  userAuthenticatorBackupCodeGenerate(data: BackupCodeGenerateSchema!): AuthenticatorBackupCodeResult!
+  userAuthenticatorBackupCodeRegenerate(authenticatorChallenge: AuthenticatorChallengeSchema!, data: BackupCodeRegenerateSchema!): AuthenticatorBackupCodeResult!
+  userAuthenticatorRevoke(authenticatorChallenge: AuthenticatorChallengeSchema!, authenticatorId: String!): Authenticator!
   userAuthenticatorTotpEnrollmentConfirm(data: AuthenticatorEnrollmentConfirmSchema!, payload: TotpEnrollmentConfirmPayloadSchema!): Authenticator!
   userAuthenticatorTotpEnrollmentStart(data: AuthenticatorEnrollmentStartSchema!): AuthenticatorEnrollmentSession!
   userAuthenticatorTotpReplacementConfirm(data: AuthenticatorReplacementConfirmSchema!, payload: TotpReplacementConfirmPayloadSchema!): Authenticator!
-  userAuthenticatorTotpReplacementStart(authenticatorChallengePayload: JSON!, data: AuthenticatorReplacementStartSchema!): AuthenticatorReplacementSession!
+  userAuthenticatorTotpReplacementStart(authenticatorChallenge: AuthenticatorChallengeSchema!, data: AuthenticatorReplacementStartSchema!): AuthenticatorReplacementSession!
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTimeISO!
   userHandleLoginAttempt(email: String!): DateTimeISO!
-  userMerchantApiKeyCreate(authenticatorChallengePayload: JSON!, merchantId: String): MerchantApiKey!
-  userMerchantApiKeyDelete(authenticatorChallengePayload: JSON!, merchantApiKeyId: String!, merchantId: String): Boolean!
-  userMerchantApiKeyShowSecret(authenticatorChallengePayload: JSON!, merchantApiKeyId: String!, merchantId: String): String!
+  userMerchantApiKeyCreate(authenticatorChallenge: AuthenticatorChallengeSchema!, merchantId: String): MerchantApiKey!
+  userMerchantApiKeyDelete(authenticatorChallenge: AuthenticatorChallengeSchema!, merchantApiKeyId: String!, merchantId: String): Boolean!
+  userMerchantApiKeyShowSecret(authenticatorChallenge: AuthenticatorChallengeSchema!, merchantApiKeyId: String!, merchantId: String): String!
   userMerchantCreate(data: MerchantCreateSchema!): MerchantUser!
   userMerchantCustomerPaymentMethodSyncOne(customer: MerchantCustomerSelector, merchantId: String, merchantInternalCustomerCode: String @deprecated(reason: "Use customer selector instead."), merchantTransactionProviderId: String!, providerCode: String!): MerchantCustomerPaymentMethod!
   userMerchantEmailUpdateFinish(data: UserMerchantEmailVerifyFinishSchema!, merchantId: String): Merchant!
@@ -1563,7 +1584,7 @@ type Mutation {
   userMerchantSentInvitationCreate(data: MerchantUserInvitationCreateSchema!, merchantId: String): MerchantUserInvitation!
   userMerchantTransactionProviderApplicationApply(merchantId: String, provider: TRANSACTION_PROVIDER!): MerchantTransactionProviderApplication!
   userMerchantTransactionProviderCreate(data: UserMerchantTransactionProviderCreateSchema!, merchantId: String): MerchantTransactionProvider!
-  userMerchantTransactionProviderIntegrationLogAuthenticatorSessionCreate(authenticatorChallengePayload: JSON!, merchantId: String): AuthenticatorSession!
+  userMerchantTransactionProviderIntegrationLogAuthenticatorSessionCreate(authenticatorChallenge: AuthenticatorChallengeSchema!, merchantId: String): AuthenticatorSession!
   userMerchantTransactionSyncOne(
     """Transaction code on AccruPay API."""
     code: String @deprecated(reason: "Transaction `code` field is deprecated. Please use the other identifiers instead.")

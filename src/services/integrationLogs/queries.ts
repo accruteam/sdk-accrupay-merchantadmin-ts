@@ -76,11 +76,11 @@ export const INTEGRATION_LOGS_GET_ALL_QUERY = gql(`
 
 export const INTEGRATION_LOGS_AUTHENTICATOR_SESSION_CREATE_MUTATION = gql(`
   mutation UserMerchantTransactionProviderIntegrationLogAuthenticatorSessionCreate(
-    $authenticatorChallengePayload: JSON!
+    $authenticatorChallenge: AuthenticatorChallengeSchema!
     $merchantId: String
   ) {
     userMerchantTransactionProviderIntegrationLogAuthenticatorSessionCreate(
-      authenticatorChallengePayload: $authenticatorChallengePayload
+      authenticatorChallenge: $authenticatorChallenge
       merchantId: $merchantId
     ) {
       ...AuthenticatorSessionFragment

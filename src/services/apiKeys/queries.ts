@@ -58,11 +58,11 @@ export const API_KEYS_GET_ALL_QUERY = gql(`
 
 export const API_KEYS_CREATE_MUTATION = gql(`
   mutation UserMerchantApiKeyCreate(
-    $authenticatorChallengePayload: JSON!
+    $authenticatorChallenge: AuthenticatorChallengeSchema!
     $merchantId: String
   ) {
     userMerchantApiKeyCreate(
-      authenticatorChallengePayload: $authenticatorChallengePayload
+      authenticatorChallenge: $authenticatorChallenge
       merchantId: $merchantId
     ) {
       ...MerchantApiKeyFragment
@@ -72,12 +72,12 @@ export const API_KEYS_CREATE_MUTATION = gql(`
 
 export const API_KEYS_DELETE_MUTATION = gql(`
   mutation UserMerchantApiKeyDelete(
-    $authenticatorChallengePayload: JSON!
+    $authenticatorChallenge: AuthenticatorChallengeSchema!
     $merchantApiKeyId: String!
     $merchantId: String
   ) {
     userMerchantApiKeyDelete(
-      authenticatorChallengePayload: $authenticatorChallengePayload
+      authenticatorChallenge: $authenticatorChallenge
       merchantApiKeyId: $merchantApiKeyId
       merchantId: $merchantId
     )
@@ -86,12 +86,12 @@ export const API_KEYS_DELETE_MUTATION = gql(`
 
 export const API_KEYS_SHOW_SECRET_MUTATION = gql(`
   mutation UserMerchantApiKeyShowSecret(
-    $authenticatorChallengePayload: JSON!
+    $authenticatorChallenge: AuthenticatorChallengeSchema!
     $merchantApiKeyId: String!
     $merchantId: String
   ) {
     userMerchantApiKeyShowSecret(
-      authenticatorChallengePayload: $authenticatorChallengePayload
+      authenticatorChallenge: $authenticatorChallenge
       merchantApiKeyId: $merchantApiKeyId
       merchantId: $merchantId
     )

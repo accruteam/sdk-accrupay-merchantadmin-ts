@@ -67,11 +67,11 @@ export const AUTHENTICATORS_TOTP_ENROLLMENT_CONFIRM_MUTATION = gql(`
 
 export const AUTHENTICATORS_TOTP_REPLACEMENT_START_MUTATION = gql(`
   mutation UserAuthenticatorTotpReplacementStart(
-    $authenticatorChallengePayload: JSON!
+    $authenticatorChallenge: AuthenticatorChallengeSchema!
     $data: AuthenticatorReplacementStartSchema!
   ) {
     userAuthenticatorTotpReplacementStart(
-      authenticatorChallengePayload: $authenticatorChallengePayload
+      authenticatorChallenge: $authenticatorChallenge
       data: $data
     ) {
       ...AuthenticatorReplacementSessionFragment
@@ -93,13 +93,41 @@ export const AUTHENTICATORS_TOTP_REPLACEMENT_CONFIRM_MUTATION = gql(`
 export const AUTHENTICATORS_REVOKE_MUTATION = gql(`
   mutation UserAuthenticatorRevoke(
     $authenticatorId: String!
-    $authenticatorChallengePayload: JSON!
+    $authenticatorChallenge: AuthenticatorChallengeSchema!
   ) {
     userAuthenticatorRevoke(
       authenticatorId: $authenticatorId
-      authenticatorChallengePayload: $authenticatorChallengePayload
+      authenticatorChallenge: $authenticatorChallenge
     ) {
       ...AuthenticatorFragment
+    }
+  }
+`);
+
+export const AUTHENTICATORS_BACKUP_CODE_GENERATE_MUTATION = gql(`
+  mutation UserAuthenticatorBackupCodeGenerate($data: BackupCodeGenerateSchema!) {
+    userAuthenticatorBackupCodeGenerate(data: $data) {
+      authenticator {
+        ...AuthenticatorFragment
+      }
+      codes
+    }
+  }
+`);
+
+export const AUTHENTICATORS_BACKUP_CODE_REGENERATE_MUTATION = gql(`
+  mutation UserAuthenticatorBackupCodeRegenerate(
+    $authenticatorChallenge: AuthenticatorChallengeSchema!
+    $data: BackupCodeRegenerateSchema!
+  ) {
+    userAuthenticatorBackupCodeRegenerate(
+      authenticatorChallenge: $authenticatorChallenge
+      data: $data
+    ) {
+      authenticator {
+        ...AuthenticatorFragment
+      }
+      codes
     }
   }
 `);
