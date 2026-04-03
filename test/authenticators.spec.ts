@@ -116,6 +116,10 @@ describe('Authenticator-related services', () => {
     };
 
     const generateVariables = {
+      authenticatorChallenge: {
+        type: AUTHENTICATOR_TYPE.TOTP,
+        payload: { code: '123456' },
+      },
       data: { label: 'Backup codes' },
     };
     mutate.mockResolvedValueOnce({
