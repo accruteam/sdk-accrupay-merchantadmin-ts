@@ -1559,7 +1559,7 @@ type Mutation {
     """Transaction token, only when the transaction is not finished/expired."""
     token: String @deprecated(reason: "Use Transaction Session API.")
   ): MerchantTransaction!
-  userAuthenticatorBackupCodeGenerate(data: BackupCodeGenerateSchema!): AuthenticatorBackupCodeResult!
+  userAuthenticatorBackupCodeGenerate(authenticatorChallenge: AuthenticatorChallengeSchema!, data: BackupCodeGenerateSchema!): AuthenticatorBackupCodeResult!
   userAuthenticatorBackupCodeRegenerate(authenticatorChallenge: AuthenticatorChallengeSchema!, data: BackupCodeRegenerateSchema!): AuthenticatorBackupCodeResult!
   userAuthenticatorRevoke(authenticatorChallenge: AuthenticatorChallengeSchema!, authenticatorId: String!): Authenticator!
   userAuthenticatorTotpEnrollmentConfirm(data: AuthenticatorEnrollmentConfirmSchema!, payload: TotpEnrollmentConfirmPayloadSchema!): Authenticator!

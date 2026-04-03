@@ -105,8 +105,14 @@ export const AUTHENTICATORS_REVOKE_MUTATION = gql(`
 `);
 
 export const AUTHENTICATORS_BACKUP_CODE_GENERATE_MUTATION = gql(`
-  mutation UserAuthenticatorBackupCodeGenerate($data: BackupCodeGenerateSchema!) {
-    userAuthenticatorBackupCodeGenerate(data: $data) {
+  mutation UserAuthenticatorBackupCodeGenerate(
+    $authenticatorChallenge: AuthenticatorChallengeSchema!
+    $data: BackupCodeGenerateSchema!
+  ) {
+    userAuthenticatorBackupCodeGenerate(
+      authenticatorChallenge: $authenticatorChallenge
+      data: $data
+    ) {
       authenticator {
         ...AuthenticatorFragment
       }
