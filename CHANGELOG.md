@@ -1,5 +1,11 @@
 # @accrupay/merchant-admin
 
+## 0.12.1
+
+### Patch Changes
+
+- ec2f5f7: add authenticator challenge to backup code generate mutation
+
 ## 0.12.0
 
 ### Minor Changes
